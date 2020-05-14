@@ -27,12 +27,13 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li class="active"><a href="<?php echo site_url('admin');?>"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-			<li><a href="#"><em class="fa fa-calendar">&nbsp;</em> Data Pendaftar</a></li>
-			<li><a href="#"><em class="fa fa-calendar">&nbsp;</em> Metode AHP</a></li>
-			<li><a href="#"><em class="fa fa-calendar">&nbsp;</em> Metode SAW</a></li>
-			<li><a href="grafik_pendaftar.php"><em class="fa fa-bar-chart">&nbsp;</em> Grafik</a></li>
-			<li><a href="admin_user.php"><em class="fa fa-toggle-off">&nbsp;</em> User</a></li>
-			<li><a href="<?php echo site_url('login/logout');?>" title="Logout" onclick="return confirm('Apakah anda yakin ingin keluar ?')"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li <?php if($page == 'dashboard') echo "class='active'";?>><a href="<?=site_url('admin');?>"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
+			<li <?php if($page == 'data_pendaftar' || $page == 'edit_pendaftar') echo "class='active'";?>><a href="<?=site_url('admin/data_pendaftar');?>"><em class="fa fa-calendar">&nbsp;</em> Data Pendaftar</a></li>
+			<li <?php if($page == 'data_user' || $page == 'add_user' || $page == 'edit_user') echo "class='active'";?>><a href="<?=site_url('admin/data_user');?>"><em class="fa fa-calendar">&nbsp;</em> Data User</a></li>
+			<li <?php if($page == 'ahp') echo "class='active'";?>><a href="<?=site_url('admin/ahp');?>"><em class="fa fa-calendar">&nbsp;</em> Metode AHP</a></li>
+			<li <?php if($page == 'saw') echo "class='active'";?>><a href="<?=site_url('admin/saw');?>"><em class="fa fa-calendar">&nbsp;</em> Metode SAW</a></li>
+			<li <?php if($page == 'pesan' || $page == 'lihat_pesan') echo "class='active'";?>><a href="<?=site_url('admin/pesan');?>"><em class="fa fa-bar-chart">&nbsp;</em> Pesan</a></li>
+			<li <?php if($page == 'ubah_password') echo "class='active'";?>><a href="<?=site_url('admin/ubah_password');?>"><em class="fa fa-toggle-off">&nbsp;</em> Rubah Password</a></li>
+			<li><a href="<?=site_url('login/logout');?>" title="Logout" onclick="return confirm('Apakah anda yakin ingin keluar ?')"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div>

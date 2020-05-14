@@ -4,20 +4,22 @@
 			<li><a href="#">
 				<em class="fa fa-home"></em>
 			</a></li>
-			<li class="active">Data Pendaftar</li>
+			<li class="active"><?=$title;?></li>
 		</ol>
 	</div><!--/.row-->
 	
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Data Pendaftar</h1>
+			<h1 class="page-header"><?=$title;?></h1>
 		</div>
 	</div><!--/.row-->
 	
 	<div class="panel panel-container">
 		<div class="panel panel-container" style="padding: 50px">
 		<div class="bootstrap-table">
-			<?php if ($this->session->flashdata('success')) { ?>
+		<br>
+			<div class="fixed-table-container">
+				<?php if ($this->session->flashdata('success')) { ?>
                     <div class="alert alert-success" role="alert">
                       <?=$this->session->flashdata('success');?>
                     </div>
@@ -26,8 +28,6 @@
                       <?=$this->session->flashdata('error');?>
                     </div>
                 <?php } ?>
-		<br>
-			<div class="fixed-table-container">
 				<div class="fixed-table-header">
 					<table></table>
 				</div>
@@ -66,8 +66,12 @@
 									<td><?=$row['nisn'];?></td>
 									<td><?=$row['nama'];?></td>
 									<td><?=$row['asal_sekolah'];?></td>
-									<td width='35' align='center'><a class='btn btn-sm btn-primary' href=editpeserta.php?id=$data[0]>Edit</a></td>
-									<td width='35' align='center'><a class='btn btn-sm btn-danger' href="admin_user.php?tombol=delete&adm_id='1'" title="Hapus" onclick="return confirm('Apakah anda yakin ingin keluar ?')">Hapus</a>
+									<td width='35' align='center'>
+										<a class='btn btn-sm btn-primary' 
+											href="<?php echo site_url('admin/edit_pendaftar/'.$row['nisn']);?>">Edit</a>
+									</td>
+									<td width='35' align='center'>
+										<a class='btn btn-sm btn-danger' href="<?php echo site_url('admin/del_pendaftar/'.$row['nisn']);?>" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ?')">Hapus</a>
 									</td>
 								</tr>
 							<?php endforeach; ?>

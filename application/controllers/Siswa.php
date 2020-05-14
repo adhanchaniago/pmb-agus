@@ -15,7 +15,8 @@ class Siswa extends CI_Controller {
 		if ($this->session->userdata('siswa_login') != 1)
             redirect(site_url('login'), 'refresh');
         if ($this->session->userdata('siswa_login') == 1)
-            redirect(site_url('siswa/dashboard'), 'refresh');	}
+            redirect(site_url('siswa/dashboard'), 'refresh');	
+    }
 
 	public function dashboard()
 	{
@@ -71,6 +72,7 @@ class Siswa extends CI_Controller {
             redirect(base_url(), 'refresh');
 
         $nisn = $this->session->userdata('siswa_username');
+        $raport = $this->db->get_where('nilai_raport', array('nisn' => $nisn))->row();
         $siswa = $this->db->get_where('peserta_pendaftar', array('nisn' => $nisn))->row();
         if ($siswa->jalur == 'umum') {
             $page = 'nilai_raport_umum';
@@ -79,6 +81,7 @@ class Siswa extends CI_Controller {
         }
 
         $data['page']  = $page;
+        $data['raport']  = $raport;
         $data['title'] = 'Nilai Raport Siswa';
         $this->load->view('backend/siswa/index', $data);
     }
@@ -88,35 +91,18 @@ class Siswa extends CI_Controller {
         if ($this->session->userdata('siswa_login') != 1)
             redirect(base_url(), 'refresh');
 
-        $data['b_ind1'] = $this->input->post('bindo1');
-        $data['b_ind2'] = $this->input->post('bindo2');
-        $data['b_ind3'] = $this->input->post('bindo3');
-        $data['b_ind4'] = $this->input->post('bindo4');
-        $data['b_ind5'] = $this->input->post('bindo5');
-        $data['mtk1'] = $this->input->post('mtk1');
-        $data['mtk2'] = $this->input->post('mtk2');
-        $data['mtk3'] = $this->input->post('mtk3');
-        $data['mtk4'] = $this->input->post('mtk4');
-        $data['mtk5'] = $this->input->post('mtk5');
-        $data['ipa1'] = $this->input->post('ipa1');
-        $data['ipa2'] = $this->input->post('ipa2');
-        $data['ipa3'] = $this->input->post('ipa3');
-        $data['ipa4'] = $this->input->post('ipa4');
-        $data['ipa5'] = $this->input->post('ipa5');
-        $data['ips1'] = $this->input->post('ips1');
-        $data['ips2'] = $this->input->post('ips2');
-        $data['ips3'] = $this->input->post('ips3');
-        $data['ips4'] = $this->input->post('ips4');
-        $data['ips5'] = $this->input->post('ips5');
-        $data['b_ing1'] = $this->input->post('bing1');
-        $data['b_ing2'] = $this->input->post('bing2');
-        $data['b_ing3'] = $this->input->post('bing3');
-        $data['b_ing4'] = $this->input->post('bing4');
-        $data['b_ing5'] = $this->input->post('bing5');
+        $nisn = $this->session->userdata('siswa_username');
+        $data['sem1'] = $this->input->post('sem1');
+        $data['sem2'] = $this->input->post('sem2');
+        $data['sem3'] = $this->input->post('sem3');
+        $data['sem4'] = $this->input->post('sem4');
+        $data['sem5'] = $this->input->post('sem5');
+        $data['total'] = ($data['sem1'] + $data['sem2'] + $data['sem3'] + $data['sem4'] + $data['sem5']);
 
-        $this->db->insert('nilai_raport', $data);
-        $this->session->set_flashdata('success' , 'Berhasil Daftar, Silahkan Login');
-        redirect(site_url('login'), 'refresh');
+        $this->db->where('nisn' , $nisn);
+        $this->db->update('nilai_raport' , $data);
+        $this->session->set_flashdata('success' , 'Nilai Berhasil Disimpan');
+        redirect(site_url('siswa/nilai_raport'), 'refresh');
     }
 
     public function pesan()
@@ -165,7 +151,7 @@ class Siswa extends CI_Controller {
             $this->db->where('username' , $un);
             $this->db->update('user' , $data);
             $this->session->set_flashdata('success', 'Username & Password Berhasil Dirubah');
-            redirect('siswa/ubah_password', 'refresh');
+            redirect('siswa/dashboard', 'refresh');
         }else{
             $this->session->set_flashdata('error', 'Password Baru Tidak Sama');
             redirect('siswa/ubah_password', 'refresh');

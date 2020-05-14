@@ -13,7 +13,14 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-		$data['page'] = 'login';		
+		if ($this->session->userdata('admin_login') == 1)
+            redirect(site_url('admin/dashboard'), 'refresh');
+        if ($this->session->userdata('petugas_login') == 1)
+            redirect(site_url('petugas/dashboard'), 'refresh');
+        if ($this->session->userdata('siswa_login') == 1)
+            redirect(site_url('siswa/dashboard'), 'refresh');
+
+		$data['page'] = 'login';
 		$this->load->view('frontend/index', $data);
 	}
 
