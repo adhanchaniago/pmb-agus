@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <a href="home.php"><img src="<?=base_url();?>public/images/logo.png" alt="Hair Salon Website Templates Free Download"></a>
+            <a href="<?php echo base_url();?>"><img src="<?=base_url();?>public/images/logo.jpg" alt="Hair Salon Website Templates Free Download"></a>
         </div>
         <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
             <div class="navigation">
@@ -23,6 +23,7 @@
                                 <li><a href="<?php echo site_url('pengumuman/prestasi');?>" title="Jalur Prestasi">Jalur Prestasi</a></li>
                             </ul>
                         </li>
+                        <li class="active"><a href="<?php echo site_url('pesan');?>" title="Pesan">Kirim Pesan</a></li>
                         <li class="active"><a href="<?php echo site_url('bantuan');?>" title="Bantuan">Bantuan</a></li>
                     </ul>
                 </div>

@@ -26,13 +26,21 @@ class Login extends CI_Controller {
 		if ($cek->num_rows() > 0) {
 			// echo 'berhasil';
 			$row = $cek->row();
-			$this->session->set_userdata('siswa_login', '1');
-			$this->session->set_userdata('siswa_id', $row->username);
-			$this->session->set_flashdata('success', 'berhasil login');
-			redirect(site_url('siswa/dashboard'), 'refresh');
-			
+			if ($row->type == 'admin') {
+				$this->session->set_userdata('admin_login', '1');
+				$this->session->set_userdata('admin_id', $row->adm_id);
+				$this->session->set_userdata('admin_username', $row->username);
+				$this->session->set_flashdata('success', 'berhasil login');
+				redirect(site_url('admin/dashboard'), 'refresh');
+			}else{
+				$this->session->set_userdata('siswa_login', '1');
+				$this->session->set_userdata('siswa_id', $row->adm_id);
+				$this->session->set_userdata('siswa_username', $row->username);
+				$this->session->set_flashdata('success', 'berhasil login');
+				redirect(site_url('siswa/dashboard'), 'refresh');
+			}
 		}else{
-			$this->session->set_flashdata('gagal', 'Username & Password Salah!');
+			$this->session->set_flashdata('error', 'Username & Password Salah!');
 			redirect(site_url('login'), 'refresh');
 		}
 	}

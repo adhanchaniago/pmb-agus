@@ -28,33 +28,32 @@ class Pendaftaran extends CI_Controller {
 		$nisn       = html_escape($this->input->post('nisn'));
 		$data['nisn']       = $this->input->post('nisn');
 		$data['nama']		= $this->input->post('nama');
+		$data['no_peserta']		= $this->input->post('no_peserta');
+		$data['asal_sekolah']		= $this->input->post('asal_sekolah');
+		$data['jurusan']		= $this->input->post('jurusan');
+		$data['jarak_sekolah']		= $this->input->post('jarak_sekolah');
 		$data['tempat_lahir']		= $this->input->post('tmpt_lahir');
 		$data['tanggal_lahir']		= $this->input->post('tgl_lahir');
 		$data['jenis_kelamin']		= $this->input->post('jenis_kelamin');
 		$data['agama']		= $this->input->post('agama');
-		$data['anak_ke']		= $this->input->post('anak_ke');
-		$data['jml_saudara']		= $this->input->post('jml_saudara');
-		$data['hp_siswa']		= $this->input->post('hp_siswa');
+		$data['kabupaten']		= $this->input->post('kabupaten');
+		$data['kecamatan']		= $this->input->post('kecamatan');
 		$data['alamat_siswa']		= $this->input->post('alamat_siswa');
-		$data['berat_badan']		= $this->input->post('berat_badan');
-		$data['tinggi_badan']		= $this->input->post('tinggi_badan');
-		$data['gol_darah']		= $this->input->post('gol_darah');
-		$data['asal_sekolah']		= $this->input->post('asal_sekolah');
-		$data['alamat_sekolah']		= $this->input->post('alamat_sekolah');
 		$data['nama_ayah']		= $this->input->post('nama_ayah');
 		$data['nama_ibu']		= $this->input->post('nama_ibu');
 		$data['alamat_ortu']		= $this->input->post('alamat_ortu');
 		$data['hp_ortu']		= $this->input->post('hp_ortu');
 		$data['kerja_ayah']		= $this->input->post('kerja_ayah');
 		$data['kerja_ibu']		= $this->input->post('kerja_ibu');
-		$data['penghasilan_ortu']		= $this->input->post('penghasilan_ortu');
-		$data['tanggungan_anak']		= $this->input->post('tanggungan');
-		$data['tahun']		= '2020';
+		$data['penghasilan_ayah']		= $this->input->post('penghasilan_ayah');
+		$data['penghasilan_ibu']		= $this->input->post('penghasilan_ibu');
+		$data['ranking']		= $this->input->post('rangking');
+		$data['jalur']		= 'umum';
 
 		$cek = $this->db->get_where('peserta_pendaftar', array('nisn' => $nisn));
 		if($cek->num_rows() > 0){
 			
-			$this->session->set_flashdata('flash_message' , 'nisn sudah ada, silahkan login');
+			$this->session->set_flashdata('error', 'nisn sudah ada, silahkan login');
             redirect(site_url('pendaftaran/umum'), 'refresh');
 
 		}else{
@@ -68,8 +67,9 @@ class Pendaftaran extends CI_Controller {
 
 			$data3['nisn'] = $this->input->post('nisn');
 
-			$this->db->insert('nilai_ijazah', $data3);
-			$this->session->set_flashdata('flash_message' , 'data berhasil disimpan');
+			$this->db->insert('nilai_raport', $data3);
+			$this->session->set_flashdata('success' , 'Berhasil Daftar, Silahkan Login');
+			redirect(site_url('login'), 'refresh');
 		}
 	}
 
@@ -80,8 +80,62 @@ class Pendaftaran extends CI_Controller {
 		$this->load->view('frontend/index', $data);
 	}
 
+	public function prestasi_daftar()
+	{
+		$nisn       = html_escape($this->input->post('nisn'));
+		$data['nisn']       = $this->input->post('nisn');
+		$data['nama']		= $this->input->post('nama');
+		$data['no_peserta']		= $this->input->post('no_peserta');
+		$data['asal_sekolah']		= $this->input->post('asal_sekolah');
+		$data['jurusan']		= $this->input->post('jurusan');
+		$data['jarak_sekolah']		= $this->input->post('jarak_sekolah');
+		$data['tempat_lahir']		= $this->input->post('tmpt_lahir');
+		$data['tanggal_lahir']		= $this->input->post('tgl_lahir');
+		$data['jenis_kelamin']		= $this->input->post('jenis_kelamin');
+		$data['agama']		= $this->input->post('agama');
+		$data['kabupaten']		= $this->input->post('kabupaten');
+		$data['kecamatan']		= $this->input->post('kecamatan');
+		$data['alamat_siswa']		= $this->input->post('alamat_siswa');
+		$data['nama_ayah']		= $this->input->post('nama_ayah');
+		$data['nama_ibu']		= $this->input->post('nama_ibu');
+		$data['alamat_ortu']		= $this->input->post('alamat_ortu');
+		$data['hp_ortu']		= $this->input->post('hp_ortu');
+		$data['kerja_ayah']		= $this->input->post('kerja_ayah');
+		$data['kerja_ibu']		= $this->input->post('kerja_ibu');
+		$data['penghasilan_ayah']		= $this->input->post('penghasilan_ayah');
+		$data['penghasilan_ibu']		= $this->input->post('penghasilan_ibu');
+		$data['ranking']		= $this->input->post('rangking');
+		$data['jalur']		= 'prestasi';
+
+		$cek = $this->db->get_where('peserta_pendaftar', array('nisn' => $nisn));
+		if($cek->num_rows() > 0){
+			
+			$this->session->set_flashdata('error' , 'nisn sudah ada, silahkan login');
+            redirect(site_url('pendaftaran/prestasi'), 'refresh');
+
+		}else{
+			$this->db->insert('peserta_pendaftar', $data);
+
+			$data2['username'] = $this->input->post('nisn');
+			$data2['password'] = md5($this->input->post('nisn'));
+			$data2['type'] = 'siswa';
+
+			$this->db->insert('user', $data2);
+
+			$data3['nisn'] = $this->input->post('nisn');
+
+			$this->db->insert('nilai_raport', $data3);
+			$this->session->set_flashdata('success' , 'Berhasil Daftar, Silahkan Login');
+			redirect(site_url('login'), 'refresh');
+		}
+	}
+
 	public function lihat_daftar()
 	{
+
+		$daftar = $this->db->get('peserta_pendaftar')->result_array();
+
+		$data['daftar'] = $daftar;
 		$data['page'] = 'lihat_daftar';
 		$data['title'] = 'Daftar Pendaftar';
 		$this->load->view('frontend/index', $data);

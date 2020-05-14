@@ -6,7 +6,7 @@
                         <h2 class="page-title">Login</h2>
                         <div class="page-breadcrumb">
                             <ol class="breadcrumb">
-                                <li><a href="../home.php">Beranda</a></li>
+                                <li><a href="<?php echo base_url();?>">Beranda</a></li>
                                 <li class="active">akun</li>
                             </ol>
                         </div>
@@ -18,6 +18,15 @@
     <div class="content">
         <div class="container">
             <div class="col-md-offset-2 col-md-8">
+                <?php if ($this->session->flashdata('success')) { ?>
+                    <div class="alert alert-success" role="alert">
+                      <?=$this->session->flashdata('success');?>
+                    </div>
+                <?php }else if ($this->session->flashdata('error')){?>
+                    <div class="alert alert-danger" role="alert">
+                      <?=$this->session->flashdata('error');?>
+                    </div>
+                <?php } ?>
                 <div class="mb60 text-center section-title">
                     <!-- section title start-->
                     <h1>FORM LOGIN</h1>

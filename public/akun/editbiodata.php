@@ -9,6 +9,7 @@
     <meta name="description" content="Hair salon templates for mens hair cut service provider.">
     <meta name="keywords" content="hair salon website templates free download, html5 template, free responsive website templates, website layout,html5 website templates, template for website design, beauty HTML5 templates, cosmetics website templates free download">
     <title>Biodata</title>
+    
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->

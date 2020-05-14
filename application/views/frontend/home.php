@@ -8,7 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Hair salon templates for mens hair cut service provider.">
     <meta name="keywords" content="hair salon website templates free download, html5 template, free responsive website templates, website layout,html5 website templates, template for website design, beauty HTML5 templates, cosmetics website templates free download">
-    <title>SMP Negeri 2 Raha</title>
+    <title>SMA Negeri 2 Barabai</title>
     <!-- Bootstrap -->
     <link href="<?=base_url();?>public/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
@@ -33,7 +33,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <h1 class="hero-title">Website resmi SMP Negeri 2 Raha</h1>
+                    <h1 class="hero-title">Website resmi SMA Negeri 2 Barabai</h1>
                     <p class="hero-text"><strong>Selamat datang di website kami</strong> </p>
                     
             </div>

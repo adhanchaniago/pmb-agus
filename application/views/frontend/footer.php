@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="footer-widget">
-                    <h2 class="widget-title">SMP Negeri 2 Raha</h2>
+                    <h2 class="widget-title">SMA Negeri 2 Barabai</h2>
                     <ul class="listnone contact">
                         <li><i class="fa fa-map-marker"></i> 4958 Norman Street Los Angeles, CA 90042 </li>
                         <li><i class="fa fa-phone"></i> +00 (800) 123-4567</li>

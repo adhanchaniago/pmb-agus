@@ -62,8 +62,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php 
+                                    $no = 1;
+                                    foreach ($daftar as $row) { ?>
+                                        <tr>
+                                            <td><?=$no++;?></td>
+                                            <td><?=$row['nisn'];?></td>
+                                            <td><?=$row['nama'];?></td>
+                                            <td><?=$row['asal_sekolah'];?></td>
+                                        </tr>
+                                    <?php }
+                                    ?>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
