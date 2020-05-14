@@ -19,8 +19,7 @@
 <div class="content">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <?php if ($this->session->flashdata('success')) { ?>
+            <?php if ($this->session->flashdata('success')) { ?>
                     <div class="alert alert-success" role="alert">
                       <?=$this->session->flashdata('success');?>
                     </div>
@@ -29,6 +28,7 @@
                       <?=$this->session->flashdata('error');?>
                     </div>
                 <?php } ?>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
                         <h1>Nilai Rapor Calon Peserta Didik</h1>
                         <p> Please complete the form below.</p>
@@ -37,95 +37,26 @@
                                 <div class='col-md-12'>
                                     <label class='control-label'>nisn*</label>
                                     <h3><?php echo $this->session->userdata('siswa_username');?></h3>
-                                    <label class='control-label'>nilai bahasa indonesia</label>
-                                    <table>
-                                        <tr>
-                                            <td>Sems 1</td>
-                                            <td>Sems 2</td>
-                                            <td>Sems 3</td>
-                                            <td>Sems 4</td>
-                                            <td>Sems 5</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type='number' name='bindo1' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='bindo2' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='bindo3' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='bindo4' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='bindo5' placeholder='' class='form-control' required></td>
-                                        </tr>
-                                    </table>
-                                    
-                                    <label class='control-label'>nilai bahasa inggris</label>
-                                    <table>
-                                        <tr>
-                                            <td>Sems 1</td>
-                                            <td>Sems 2</td>
-                                            <td>Sems 3</td>
-                                            <td>Sems 4</td>
-                                            <td>Sems 5</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type='number' name='bing1' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='bing2' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='bing3' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='bing4' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='bing5' placeholder='' class='form-control' required></td>
-                                        </tr>
-                                    </table>
-
-                                    <label class='control-label'>nilai ipa</label>
-                                    <table>
-                                        <tr>
-                                            <td>Sems 1</td>
-                                            <td>Sems 2</td>
-                                            <td>Sems 3</td>
-                                            <td>Sems 4</td>
-                                            <td>Sems 5</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type='number' name='ipa1' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='ipa2' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='ipa3' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='ipa4' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='ipa5' placeholder='' class='form-control' required></td>
-                                        </tr>
-                                    </table>
-
-                                    <label class='control-label'>nilai ips</label>
-                                    <table>
-                                        <tr>
-                                            <td>Sems 1</td>
-                                            <td>Sems 2</td>
-                                            <td>Sems 3</td>
-                                            <td>Sems 4</td>
-                                            <td>Sems 5</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type='number' name='ips1' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='ips2' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='ips3' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='ips4' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='ips5' placeholder='' class='form-control' required></td>
-                                        </tr>
-                                    </table>
-
-                                    <label class='control-label'>nilai matematika</label>
-                                    <table>
-                                        <tr>
-                                            <td>Sems 1</td>
-                                            <td>Sems 2</td>
-                                            <td>Sems 3</td>
-                                            <td>Sems 4</td>
-                                            <td>Sems 5</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type='number' name='mtk1' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='mtk2' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='mtk3' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='mtk4' placeholder='' class='form-control' required></td>
-                                            <td><input type='number' name='mtk5' placeholder='' class='form-control' required></td>
-                                        </tr>
-                                    </table>
+                                    <label class='control-label'>Jumlah Nilai Semester 1 (Bahasa Indonesia, Matematika, IPA, IPA, Bahasa Inggris)</label>
+                                    <div class="col-md-6">
+                                        <input type='number' name='sem1' placeholder='' class='form-control' value="<?=$raport->sem1;?>" required>
+                                    </div>
+                                    <label class='control-label'>Jumlah Nilai Semester 2 (Bahasa Indonesia, Matematika, IPA, IPA, Bahasa Inggris)</label>
+                                    <div class="col-md-6">
+                                        <input type='number' name='sem2' placeholder='' class='form-control' value="<?=$raport->sem2;?>" required>
+                                    </div>
+                                    <label class='control-label'>Jumlah Nilai Semester 3 (Bahasa Indonesia, Matematika, IPA, IPA, Bahasa Inggris)</label>
+                                    <div class="col-md-6">
+                                        <input type='number' name='sem3' placeholder='' class='form-control' value="<?=$raport->sem3;?>" required>
+                                    </div>
+                                    <label class='control-label'>Jumlah Nilai Semester 4 (Bahasa Indonesia, Matematika, IPA, IPA, Bahasa Inggris)</label>
+                                    <div class="col-md-6">
+                                        <input type='number' name='sem4' placeholder='' class='form-control' value="<?=$raport->sem4;?>" required>
+                                    </div>
+                                    <label class='control-label'>Jumlah Nilai Semester 5 (Bahasa Indonesia, Matematika, IPA, IPA, Bahasa Inggris)</label>
+                                    <div class="col-md-6">
+                                        <input type='number' name='sem5' placeholder='' class='form-control' value="<?=$raport->sem5;?>" required>
+                                    </div>
                                 </div>
                                 <div class='col-md-12'>
                                     <div class='form-group'>
