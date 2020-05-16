@@ -45,15 +45,15 @@
 					<li <?php if($page=="analisa_kriteria" || $page=="analisa_kriteria_table") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/ahp','<span class=entypo-chart-bar>Perbandingan Kriteria</span>'); ?></li>
 				</ul>
 			</li>
-			<li <?php if($page=="Alternatif" || $page=="alternatif" || $page=="Banding" || $page=="banding" || $page=="Hasil" || $page=="hasil") echo 'class="active opened active multiple-expanded" '; ?>>
+			<li <?php if($page=="saw_kriteria" || $page=="saw_kriteria_detail" || $page=="add_saw_kriteria" || $page=="edit_saw_kriteria") echo 'class="active opened active multiple-expanded" '; ?>>
 				<a href="ui-panels.html">
 					<i class="entypo-book"></i>
 					<span>Metode SAW</span>
 				</a>
 				<ul>
-					<li <?php if($page=="alternatif" || $page=="Alternatif") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('Alternatif','<span class=entypo-direction>Alternatif</span>'); ?></li>
-					<li <?php if($page=="banding" || $page=="Banding") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('Perbandingan/banding','<span class=entypo-switch> Perbandingan</span>'); ?></li>
-					<li <?php if($page=="hasil" || $page=="Hasil") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('Perbandingan/hasil','<span class=entypo-chart-bar>Hasil Perhitungan</span>'); ?></li>
+					<li <?php if($page=="saw_kriteria") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/saw_kriteria','<span class=entypo-direction>Kriteria</span>'); ?></li>
+					<li <?php if($page=="saw_kriteria_detail" || $page=="add_saw_kriteria" || $page=="edit_saw_kriteria") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/saw_kriteria_detail','<span class=entypo-switch> Kriteria Detail</span>'); ?></li>
+					<li <?php if($page=="saw_hasil" || $page=="Hasil") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/saw_hasil','<span class=entypo-chart-bar>Hasil Seleksi</span>'); ?></li>
 				</ul>
 			</li>
 			<li <?php if($page=="pesan" || $page=="lihat_pesan") echo 'class="active opened active" '; ?>><?= anchor('admin/pesan','<i class=entypo-mail></i><span>Pesan</span>'); ?></li>

@@ -613,7 +613,14 @@ class Admin extends CI_Controller {
                 }
             }
             $bobots = $this->db->select('AVG(hasil_analisa_kriteria) AS rt')->from('analisa_kriteria')->where('kriteria_pertama', $baris['id_kriteria'])->get()->row();
-            $bobot['bobot_kriteria'] = $bobots->rt;
+            $persen = ($bobots->rt)*100;
+            if ($persen > 50) {
+                $bobot['bobot_kriteria'] = $bobots->rt;
+                $bobot['atribut_kriteria'] = 'cost';
+            }else{
+                $bobot['bobot_kriteria'] = $bobots->rt;
+                $bobot['atribut_kriteria'] = 'benefit';
+            }
             $this->db->where('id_kriteria' , $baris['id_kriteria']);
             $this->db->update('data_kriteria', $bobot);
         }
@@ -637,6 +644,114 @@ class Admin extends CI_Controller {
         $data['nilai'] = $nilai;
         $data['count'] = $kriteria->num_rows();
         $this->load->view('backend/admin/index', $data);
+    }
+
+    public function saw_kriteria()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $kriteria = $this->db->get('data_kriteria')->result_array();
+
+        $data['page']  = 'saw_kriteria';
+        $data['title'] = 'Metode SAW';
+        $data['title1'] = 'Data Kriteria';
+        $data['kriteria'] = $kriteria;
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function add_saw_kriteria()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $kriteria = $this->db->get('data_kriteria')->result_array();
+
+        $data['page']  = 'add_saw_kriteria';
+        $data['title'] = 'Metode SAW';
+        $data['title1'] = 'Data Kriteria Detail';
+        $data['kriteria'] = $kriteria;
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function save_saw_kriteria()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $data['id_kriteria']       = $this->input->post('id_kriteria');
+        $data['nama_detail']       = $this->input->post('nama');
+        $data['nilai']       = $this->input->post('nilai');
+
+        $this->db->insert('kriteria_detail' , $data);
+        $this->session->set_flashdata('success', 'Data Berhasil Di Simpan');
+        redirect('admin/add_saw_kriteria','refresh');
+    }
+
+    public function edit_saw_kriteria($id)
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $id_k = $id;
+        $sql = $this->db->get_where('kriteria_detail', array('id_detail' => $id_k))->row();
+        $kriteria = $this->db->get('data_kriteria')->result_array();
+
+        $data['page']  = 'edit_saw_kriteria';
+        $data['title'] = 'Metode SAW';
+        $data['title1'] = 'Edit Data Kriteria';
+        $data['edit'] = $sql;
+        $data['kriteria'] = $kriteria;
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function update_saw_kriteria()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $id       = $this->input->post('id_detail');
+        $data['id_kriteria']       = $this->input->post('id_kriteria');
+        $data['nama_detail']       = $this->input->post('nama');
+        $data['nilai']       = $this->input->post('nilai');
+
+        $this->db->where('id_detail' , $id);
+        $this->db->update('kriteria_detail', $data);
+        $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
+        redirect('admin/saw_kriteria_detail','refresh');
+    }
+
+    public function del_saw_kriteria($id)
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $id_k = $id;
+        $this->db->where('id_detail' , $id_k);
+        $this->db->delete('kriteria_detail');
+        $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
+        redirect(site_url('admin/saw_kriteria_detail'), 'refresh');
+    }
+
+    public function saw_kriteria_detail()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $kriteria = $this->db->get('data_kriteria')->result_array();
+
+        $data['page']  = 'saw_kriteria_detail';
+        $data['title'] = 'Metode SAW';
+        $data['title1'] = 'Data Kriteria Detail';
+        $data['kriteria'] = $kriteria;
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function get_detail()
+    {
+        $kode = $this->input->post('id',TRUE);
+        $data = $this->db->get_where('kriteria_detail', array('id_kriteria' => $kode))->result();
+        echo json_encode($data);
     }
 
 }
