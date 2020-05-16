@@ -25,10 +25,18 @@ class Admin extends CI_Controller {
             redirect(base_url(), 'refresh');
 
         $pendaftar = $this->db->get('peserta_pendaftar')->result_array();
+        $umum = $this->db->get_where('peserta_pendaftar', array('jalur' => 'umum'))->num_rows();
+        $prestasi = $this->db->get_where('peserta_pendaftar', array('jalur' => 'prestasi'))->num_rows();
+        $user = $this->db->get('user')->num_rows();
+        $pesan = $this->db->get('pesan_peserta')->num_rows();
 
         $data['page']  = 'dashboard';
         $data['title'] = 'Admin Dashboard';
         $data['pendaftar'] = $pendaftar;
+        $data['jumlah_umum'] = $umum;
+        $data['jumlah_prestasi'] = $prestasi;
+        $data['jumlah_user'] = $user;
+        $data['jumlah_pesan'] = $pesan;
         $this->load->view('backend/admin/index', $data);
 	}
 

@@ -57,7 +57,7 @@
 				</ul>
 			</li>
 			<li <?php if($page=="pesan" || $page=="lihat_pesan") echo 'class="active opened active" '; ?>><?= anchor('admin/pesan','<i class=entypo-mail></i><span>Pesan</span>'); ?></li>
-			<li <?php if($page=="Auth" ||$page=="auth") echo 'class="active opened active multiple-expanded" '; ?>>
+			<!-- <li <?php if($page=="Auth" ||$page=="auth") echo 'class="active opened active multiple-expanded" '; ?>>
 				<a href="ui-panels.html">
 					<i class="entypo-tools"></i>
 					<span>Pengaturan</span>
@@ -65,7 +65,7 @@
 				<ul>
 					<li <?php if($page=="Auth" || $page=="auth") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/Auth','<span class=entypo-user> Users</span>'); ?></li>
 				</ul>
-			</li>
+			</li> -->
 			<li><?= anchor('login/logout','<i class=entypo-logout></i><span>Logout</span>'); ?></li>
 		</ul>
 	</div>

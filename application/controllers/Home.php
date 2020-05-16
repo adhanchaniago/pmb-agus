@@ -13,10 +13,6 @@ class Home extends CI_Controller {
     
 	public function index()
 	{
-		if ($this->session->userdata('admin_login') == 1)
-            redirect(site_url('admin/dashboard'), 'refresh');
-        if ($this->session->userdata('petugas_login') == 1)
-            redirect(site_url('petugas/dashboard'), 'refresh');
         if ($this->session->userdata('siswa_login') == 1)
             redirect(site_url('siswa/dashboard'), 'refresh');
 
