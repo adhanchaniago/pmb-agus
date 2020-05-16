@@ -260,4 +260,91 @@ class Admin extends CI_Controller {
         }
     }
 
+    public function kriteria()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $kriteria = $this->db->get('data_kriteria')->result_array();
+
+        $data['page']  = 'kriteria';
+        $data['title'] = 'Metode AHP';
+        $data['kriteria'] = $kriteria;
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function add_kriteria()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $kriteria = $this->db->get('data_kriteria');
+        $id = ($kriteria->num_rows()) + 1;
+        // if ($kriteria->num_row() > 0) {
+        //     $row = $kriteria->row();
+        //     $result = "C".($pcs[1]+1);
+        // } else {
+        //     $result = "C1";
+        // }
+
+        $data['page']  = 'add_kriteria';
+        $data['id'] = 'C'.$id;
+        $data['title'] = 'Tambah Kriteria Baru';
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function save_kriteria()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $data['id_kriteria']       = $this->input->post('id_kriteria');
+        $data['nama_kriteria']       = $this->input->post('nama');
+        $data['jumlah_kriteria']       = 0;
+        $data['bobot_kriteria']       = 0;
+
+        $this->db->insert('data_kriteria' , $data);
+        $this->session->set_flashdata('success', 'Data Berhasil Di Simpan');
+        redirect('admin/kriteria','refresh');
+    }
+
+    public function edit_kriteria($id)
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $id_k = $id;
+        $sql = $this->db->get_where('data_kriteria', array('id_kriteria' => $id_k))->row();
+
+        $data['page']  = 'edit_kriteria';
+        $data['title'] = 'Edit Data Kriteria';
+        $data['kriteria'] = $sql;
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function update_kriteria()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $id       = $this->input->post('id_kriteria');
+        $data['nama_kriteria']       = $this->input->post('nama');
+
+        $this->db->where('id_kriteria' , $id);
+        $this->db->update('data_kriteria' , $data);
+        $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
+        redirect('admin/kriteria','refresh');
+    }
+
+    public function del_kriteria($id)
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $this->db->where('id_kriteria' , $id);
+        $this->db->delete('data_kriteria');
+        $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
+        redirect(site_url('admin/kriteria'), 'refresh');
+    }
+
 }

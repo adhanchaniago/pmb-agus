@@ -1,39 +1,71 @@
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse"><span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span></button>
-				<a class="navbar-brand" href="menu_admin.php"><span>Admin</span></a>
+	<div class="sidebar-menu">
+		<header class="logo-env">
+			<!-- logo -->
+			<!-- <div class="logo">
+				<a href="index.html">
+					<img src="<?= base_url() ?>assets/images/logo-light.jpg" width="120" alt="" />
+				</a>
+			</div> -->
+
+
+			<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+			<div class="sidebar-mobile-menu visible-xs">
+				<a href="#" class="with-animation"><!-- add class "with-animation" to support animation -->
+					<i class="entypo-menu"></i>
+				</a>
 			</div>
-		</div><!-- /.container-fluid -->
-	</nav>
-	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-		<div class="profile-sidebar">
-			<div class="profile-userpic">
-				<img src="<?=base_url();?>public/images/user.png" class="img-responsive" alt="">
-			</div>
-			<div class="profile-usertitle">
-				<div class="profile-usertitle-name"><?= $this->session->userdata('admin_username'); ?></div>
-				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="divider"></div>
-		<form role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
-			</div>
-		</form>
-		<ul class="nav menu">
-			<li <?php if($page == 'dashboard') echo "class='active'";?>><a href="<?=site_url('admin');?>"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-			<li <?php if($page == 'data_pendaftar' || $page == 'edit_pendaftar') echo "class='active'";?>><a href="<?=site_url('admin/data_pendaftar');?>"><em class="fa fa-calendar">&nbsp;</em> Data Pendaftar</a></li>
-			<li <?php if($page == 'data_user' || $page == 'add_user' || $page == 'edit_user') echo "class='active'";?>><a href="<?=site_url('admin/data_user');?>"><em class="fa fa-calendar">&nbsp;</em> Data User</a></li>
-			<li <?php if($page == 'ahp') echo "class='active'";?>><a href="<?=site_url('admin/ahp');?>"><em class="fa fa-calendar">&nbsp;</em> Metode AHP</a></li>
-			<li <?php if($page == 'saw') echo "class='active'";?>><a href="<?=site_url('admin/saw');?>"><em class="fa fa-calendar">&nbsp;</em> Metode SAW</a></li>
-			<li <?php if($page == 'pesan' || $page == 'lihat_pesan') echo "class='active'";?>><a href="<?=site_url('admin/pesan');?>"><em class="fa fa-bar-chart">&nbsp;</em> Pesan</a></li>
-			<li <?php if($page == 'ubah_password') echo "class='active'";?>><a href="<?=site_url('admin/ubah_password');?>"><em class="fa fa-toggle-off">&nbsp;</em> Rubah Password</a></li>
-			<li><a href="<?=site_url('login/logout');?>" title="Logout" onclick="return confirm('Apakah anda yakin ingin keluar ?')"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+		</header>
+
+		<ul id="main-menu" class="">
+			<!-- add class "multiple-expanded" to allow multiple submenus to open -->
+			<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+			<li><a href=" <?php echo base_url('home') ?> " target="_blank"><i class="entypo-monitor"></i><span>Halaman Depan</span></a></li>
+
+			<li <?php if($page=="dahsboard") echo 'class="active opened active" '; ?> ><?= anchor('admin/dashboard','<i class=entypo-gauge></i><span>Dashboard</span>'); ?></li>
+
+			<li <?php if($page =="data_pendaftar" || $page =="data_user" || $page =="edit_pendaftar" || $page =="add_user" || $page =="edit_user") echo 'class="active opened active multiple-expanded" '; ?>>
+				<a href="#">
+					<i class="entypo-layout"></i>
+					<span>Data User</span>
+				</a>
+				<ul>
+					<li <?php if($page=="data_pendaftar" ) echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/data_pendaftar','<span class=entypo-layout>Siswa/Pendaftar</span>'); ?></li>
+					<li <?php if($page=="data_user") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/data_user','<span class=entypo-menu>Panitia/Admin</span>'); ?></li>
+				</ul>
+			</li>
+
+			<li <?php if($page=="kriteria" || $page=="add_kriteria" || $page=="edit_kriteria" || $page=="banding" || $page=="Hasil" || $page=="hasil") echo 'class="active opened active multiple-expanded" '; ?>>
+				<a href="#">
+					<i class="entypo-book"></i>
+					<span>Metode AHP</span>
+				</a>
+				<ul>
+					<li <?php if($page=="kriteria" || $page=="add_kriteria" || $page=="edit_kriteria") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/kriteria','<span class=entypo-direction>Kriteria</span>'); ?></li>
+					<li <?php if($page=="banding" || $page=="Banding") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/skala','<span class=entypo-switch> Skala Dasar AHP</span>'); ?></li>
+					<li <?php if($page=="hasil" || $page=="Hasil") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/perbandingan','<span class=entypo-chart-bar>Perbandingan Kriteria</span>'); ?></li>
+				</ul>
+			</li>
+			<li <?php if($page=="Alternatif" || $page=="alternatif" || $page=="Banding" || $page=="banding" || $page=="Hasil" || $page=="hasil") echo 'class="active opened active multiple-expanded" '; ?>>
+				<a href="ui-panels.html">
+					<i class="entypo-book"></i>
+					<span>Metode SAW</span>
+				</a>
+				<ul>
+					<li <?php if($page=="alternatif" || $page=="Alternatif") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('Alternatif','<span class=entypo-direction>Alternatif</span>'); ?></li>
+					<li <?php if($page=="banding" || $page=="Banding") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('Perbandingan/banding','<span class=entypo-switch> Perbandingan</span>'); ?></li>
+					<li <?php if($page=="hasil" || $page=="Hasil") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('Perbandingan/hasil','<span class=entypo-chart-bar>Hasil Perhitungan</span>'); ?></li>
+				</ul>
+			</li>
+			<li <?php if($page=="pesan" || $page=="lihat_pesan") echo 'class="active opened active" '; ?>><?= anchor('admin/pesan','<i class=entypo-mail></i><span>Pesan</span>'); ?></li>
+			<li <?php if($page=="Auth" ||$page=="auth") echo 'class="active opened active multiple-expanded" '; ?>>
+				<a href="ui-panels.html">
+					<i class="entypo-tools"></i>
+					<span>Pengaturan</span>
+				</a>
+				<ul>
+					<li <?php if($page=="Auth" || $page=="auth") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/Auth','<span class=entypo-user> Users</span>'); ?></li>
+				</ul>
+			</li>
+			<li><?= anchor('login/logout','<i class=entypo-logout></i><span>Logout</span>'); ?></li>
 		</ul>
 	</div>

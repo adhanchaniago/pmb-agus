@@ -1,80 +1,117 @@
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-	<div class="row">
-		<ol class="breadcrumb">
-			<li><a href="#">
-				<em class="fa fa-home"></em>
-			</a></li>
-			<li class="active">Data Pendaftar</li>
-		</ol>
-	</div><!--/.row-->
-	
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">Data Pendaftar</h1>
-		</div>
-	</div><!--/.row-->
-	
-	<div class="panel panel-container">
-		<div class="panel panel-container" style="padding: 50px">
-		<div class="bootstrap-table">
-			<?php if ($this->session->flashdata('success')) { ?>
-                    <div class="alert alert-success" role="alert">
-                      <?=$this->session->flashdata('success');?>
-                    </div>
-                <?php }else if ($this->session->flashdata('error')){?>
-                    <div class="alert alert-danger" role="alert">
-                      <?=$this->session->flashdata('error');?>
-                    </div>
-                <?php } ?>
-		<br>
-			<div class="fixed-table-container">
-				<div class="fixed-table-header">
-					<table></table>
+		    <div class="row">
+	        	<div class="col-sm-3">
+	        	
+	        		<div class="tile-stats tile-red">
+	        			<div class="icon"><i class="entypo-users"></i></div>
+	        			<div class="num" data-start="0" data-end=" <?php echo count($jumlah_users); ?> " data-postfix="" data-duration="1500" data-delay="0">0</div>
+	        			
+	        			<h3>Jumlah Users</h3>
+	        			<p> yang ada pada Website.</p>
+	        		</div>
+	        		
+	        	</div>
+	        	
+	        	<div class="col-sm-3">
+	        	
+	        		<div class="tile-stats tile-green">
+	        			<div class="icon"><i class="entypo-chart-bar"></i></div>
+	        			<div class="num" data-start="0" data-end="<?php echo count($jumlah_kriteria); ?>" data-postfix="" data-duration="1500" data-delay="600">0</div>
+	        			
+	        			<h3>Jumlah Kriteria</h3>
+	        			<p> yang ada pada Website.</p>
+	        		</div>
+	        		
+	        	</div>
+	        	
+	        	<div class="col-sm-3">
+	        	
+	        		<div class="tile-stats tile-aqua">
+	        			<div class="icon"><i class="entypo-suitcase"></i></div>
+	        			<div class="num" data-start="0" data-end=" <?php echo count($jumlah_sekolah) ?> " data-postfix="" data-duration="1500" data-delay="1200">0</div>
+	        			
+	        			<h3>Jumlah Sekolah</h3>
+	        			<p>Sekolah yang ada di kota makassar.</p>
+	        		</div>
+	        		
+	        	</div>
+	        	
+	        	<div class="col-sm-3">
+	        	
+	        		<div class="tile-stats tile-primary">
+	        			<div class="icon"><i class="entypo-rss"></i></div>
+	        			<div class="num" data-start="0" data-end="52" data-postfix="" data-duration="1500" data-delay="1800">0</div>
+	        			
+	        			<h3>Jumlah Pengunjung</h3>
+	        			<p>on our site right now.</p>
+	        		</div>
+	        		
+	        	</div>
+	        </div>
+	        <br />
+
+	        <div class="row">
+	        	<div class="col-md-6">
+		
+					<div class="panel panel-info" data-collapsed="0">
+						
+						<!-- panel head -->
+						<div class="panel-heading">
+							<div class="panel-title">Bismillahirrohmanirrohim</div>
+							
+							<div class="panel-options">								
+								<a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+								<a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+							</div>
+						</div>
+						
+						<!-- panel body -->
+						<div class="panel-body" style="text-align: justify;">
+							
+							<p>Pertama, saya mengucapkan puji syukur atas nikmat dan kemudahan yang telah Allah berikan kepada saya sehingga saya bisa sejauh ini. Semua tak lepas dari kehendakNya.
+							Kemudian saya mengucapkan rasa terimakasih yang sangat besar kepada kedua orangtuaku yang selalu mensupport segala kebutuhan akademikku hingga saat ini.
+							Kedua orangtuaku selalu mengingatkanku dan bertanya tentang perjuangan akhirku ini di STMIK Handayani.
+							Hal inilah yang mendorong saya untuk tetap semangat dan tak putus asa.
+							Rasa terimakasih yang besar juga saya haturkan kepada teman-teman saya yang turut berkontribusi dalam pengerjaan skripsi saya.
+							Dan juga kepada junior yang telah menyumbangkan keahliannya untuk membantu merapikan penulisan skripsi saya meskipun masih jauh dari sempurna.
+							Dan akhirnya, Alhamdulillah hari ini saya berdiri disini untuk awal perjuangan di masa depan.
+							<strong>Barakallahu Fiikum. Semoga urusan kita semua senantiasa dimudahkan oleh Allah azza wa jalla. Aamiin.</strong></p>
+							
+						</div>
+						
+					</div>
+		
 				</div>
-				<div class="fixed-table-body">
-					<div class="fixed-table-loading" style="top: 37px; display: none;">Loading, please wait…</div>
-						<table data-toggle="table" data-url="tables/data1.json" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" class="table table-hover">
-						<thead>
-							<tr>
-								<th style="">
-									<div class="th-inner sortable" align="center">No.</div>
-									<div class="fht-cell"></div>
-								</th>
-								<th style="">
-									<div class="th-inner sortable" align="center">NISN</div>
-									<div class="fht-cell"></div>
-								</th>
-								<th style="">
-									<div class="th-inner sortable" align="center">Nama</div>
-									<div class="fht-cell"></div>
-								</th>
-								<th style="">
-									<div class="th-inner sortable" align="center">Asal Sekolah</div>
-									<div class="fht-cell"></div>
-								</th>
-								<th style="" colspan="2">
-									<div class="th-inner sortable" align="center">Aksi</div>
-									<div class="fht-cell"></div>
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php $no = 1;
-								foreach ($pendaftar as $row):?>
-								<tr>
-									<td><?=$no++;?></td>
-									<td><?=$row['nisn'];?></td>
-									<td><?=$row['nama'];?></td>
-									<td><?=$row['asal_sekolah'];?></td>
-									<td width='35' align='center'><a class='btn btn-sm btn-primary' href=editpeserta.php?id=$data[0]>Edit</a></td>
-									<td width='35' align='center'><a class='btn btn-sm btn-danger' href="admin_user.php?tombol=delete&adm_id='1'" title="Hapus" onclick="return confirm('Apakah anda yakin ingin keluar ?')">Hapus</a>
-									</td>
-								</tr>
-							<?php endforeach; ?>
-						</tbody>
-					</table>
+
+				<div class="col-md-6">
+		
+					<div class="panel panel-success" data-collapsed="0">
+						
+						<!-- panel head -->
+						<div class="panel-heading">
+							<div class="panel-title">SPK Penentuan Sekolah Unggulan</div>
+							<div class="panel-options">								
+								<a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+								<a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+							</div>
+						</div>
+						
+						<!-- panel body -->
+						<div class="panel-body" style="text-align: justify;">
+							<p>Sistem Pendukung Keputusan Penentuan Sekolah Unggulan Tingkat SMA Sederajat Menggunakan Metode Analytical Hierarchy Process 
+							adalah sebuah sistem yang bertujuan untuk menentukan Sekolah-sekolah yang ada di makassar sebagai sekolah unggulan.
+							Tentu output atau keluaran dari sistem ini hanya sebagai rekomendasi dan perbandingan saja karena
+							untuk pemberian nama sekolah unggulan tentu merupakan hak dan wewenang Pemerintah dalam hal ini Dinas Pendidikan
+							dimana sekolah tersebut memiliki beberapa kriteria yang akan menentukan bahwa sekolah tersebut bisa dikatakan sebagai sekolah unggulan.
+							Sistem ini dibangun menggunakan Framework PHP Codeigniter dan Framework CSS Bootstrap serta didukung oleh bahasa
+							Pemrograman Java. Sistem ini masih memiliki banyak kekurangan sehingga besar harapan Pengembang untuk mendapatkan
+							masukan-masukan yang bisa membuat sistem ini bisa lebih baik lagi.
+							Semoga bisa bermanfaat</p>
+							
+						</div>
+						
+					</div>
+		
 				</div>
-			</div>
-		</div>
-	</div>		
-</div>
+	        </div>
+
+	       
