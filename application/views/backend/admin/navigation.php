@@ -34,15 +34,15 @@
 				</ul>
 			</li>
 
-			<li <?php if($page=="kriteria" || $page=="add_kriteria" || $page=="edit_kriteria" || $page=="banding" || $page=="Hasil" || $page=="hasil") echo 'class="active opened active multiple-expanded" '; ?>>
+			<li <?php if($page=="kriteria" || $page=="add_kriteria" || $page=="edit_kriteria" || $page=="nilai" || $page=="add_nilai" || $page=="edit_nilai" || $page=="analisa_kriteria" || $page=="analisa_kriteria_table") echo 'class="active opened active multiple-expanded" '; ?>>
 				<a href="#">
 					<i class="entypo-book"></i>
 					<span>Metode AHP</span>
 				</a>
 				<ul>
 					<li <?php if($page=="kriteria" || $page=="add_kriteria" || $page=="edit_kriteria") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/kriteria','<span class=entypo-direction>Kriteria</span>'); ?></li>
-					<li <?php if($page=="banding" || $page=="Banding") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/skala','<span class=entypo-switch> Skala Dasar AHP</span>'); ?></li>
-					<li <?php if($page=="hasil" || $page=="Hasil") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/perbandingan','<span class=entypo-chart-bar>Perbandingan Kriteria</span>'); ?></li>
+					<li <?php if($page=="nilai" || $page=="add_nilai" || $page=="edit_nilai") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/nilai','<span class=entypo-switch> Skala Dasar AHP</span>'); ?></li>
+					<li <?php if($page=="analisa_kriteria" || $page=="analisa_kriteria_table") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/ahp','<span class=entypo-chart-bar>Perbandingan Kriteria</span>'); ?></li>
 				</ul>
 			</li>
 			<li <?php if($page=="Alternatif" || $page=="alternatif" || $page=="Banding" || $page=="banding" || $page=="Hasil" || $page=="hasil") echo 'class="active opened active multiple-expanded" '; ?>>

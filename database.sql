@@ -54,7 +54,6 @@ INSERT INTO `data_alternatif` (`id_alternatif`, `nik`, `nama`, `tempat_lahir`, `
 ('A013', '130000000005610113', 'Rizu', 'Kalimantan Barat', '2017-08-01', 'pria', 'Kalimantan Barat', 'staf', '2017-08-15', 'S1', NULL),
 ('A014', '130000000005610114', 'Ramita', 'Indramayu', '2017-09-01', 'pria', 'Indrmaayu', 'Pergudangan', '2017-08-18', 'S1', NULL);
 
-
 CREATE TABLE `data_kriteria` (
   `id_kriteria` varchar(2) NOT NULL,
   `nama_kriteria` varchar(45) NOT NULL,
@@ -62,9 +61,6 @@ CREATE TABLE `data_kriteria` (
   `bobot_kriteria` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `data_kriteria`
---
 
 INSERT INTO `data_kriteria` (`id_kriteria`, `nama_kriteria`, `jumlah_kriteria`, `bobot_kriteria`) VALUES
 ('C1', 'Lokasi', 1.5333333333333299, 0.6333457203022433),
@@ -106,11 +102,6 @@ INSERT INTO `nilai` (`id_nilai`, `jum_nilai`, `ket_nilai`) VALUES
 (21, 0.125, '1 bagi mendekati mutlak dari'),
 (22, 0.1, '1 bagi mutlak sangat penting dari');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `nilai_awal`
---
 
 CREATE TABLE `nilai_awal` (
   `id_nilai_awal` int(11) NOT NULL,
@@ -120,11 +111,7 @@ CREATE TABLE `nilai_awal` (
   `periode` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `nilai_awal_detail`
---
 
 CREATE TABLE `nilai_awal_detail` (
   `id_nilai_awal_detail` int(11) NOT NULL,
@@ -152,11 +139,7 @@ CREATE TABLE `nilai_raport` (
   `keterangan` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
 
---
--- Struktur dari tabel `pesan_peserta`
---
 
 CREATE TABLE `pesan_peserta` (
   `id_pesan` int(11) NOT NULL,
