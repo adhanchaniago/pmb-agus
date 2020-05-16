@@ -440,7 +440,7 @@ class Admin extends CI_Controller {
         if ($this->session->userdata('admin_login') != 1)
             redirect(base_url(), 'refresh');
 
-        $this->db->delete('analisa_kriteria');
+        $this->db->empty_table('analisa_kriteria');
         redirect(site_url('admin/ahp'), 'refresh');
     }
 
