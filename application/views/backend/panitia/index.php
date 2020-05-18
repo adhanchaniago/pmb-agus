@@ -49,7 +49,7 @@
 
 	        				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 	        					<img src="<?= base_url() ?>assets/images/thumb-1@2xx.png" alt="" class="img-circle" width="44" />
-	        					<?php echo$this->session->userdata('panitia_username'); ?>
+	        					<?php echo$this->session->userdata('admin_username'); ?>
 	        				</a>
 
 	        				<ul class="dropdown-menu">
@@ -59,7 +59,7 @@
 	        					<!-- Profile sub-links -->
 
 	        					<li>
-	        						<a href="<?=site_url('panitia/pesan');?>">
+	        						<a href="<?=site_url('admin/pesan');?>">
 	        							<i class="entypo-mail"></i>
 	        							Pesan
 	        						</a>
@@ -140,6 +140,75 @@
 		</div>
 	</div>
 </div>
+
+<?php if ($page == 'saw_kriteria'): ?>
+	<?php foreach($kriteria as $row): ?>
+		<div id="kriteria<?=$row['id_kriteria']?>" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Ubah Atribut Kriteria</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<form method="post" id="form" action="<?=site_url('admin/update_saw_atribut')?>">
+					<div class="form-group">
+						<label for="id_kriteria">Atribut Kriteria</label>
+						<input type="hidden" name="id_kriteria" value="<?=$row['id_kriteria']?>">
+					  	<select class="form-control" name="atribut_kriteria">
+			            	<option value="cost" <?php if($row['atribut_kriteria'] == 'cost'){echo "selected";}?>>Cost</option>
+			            	<option value="benefit" <?php if($row['atribut_kriteria'] == 'benefit'){echo "selected";}?>>Benefit</option>
+			          	</select>
+					</div>
+					<div class="btn-group">
+						<button type="submit" class="btn btn-dark">Simpan</button>
+					</div>
+				</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+
+		  </div>
+		</div>
+	<?php endforeach; ?>
+<?php elseif($page == 'pesan'): ?>
+	<?php foreach($pesan as $p): ?>
+		<div id="pesan<?=$p['id_pesan']?>" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Lihat Pesan</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<table class="table table-striped table-bordered data">
+		      		<tr>
+		      			<th>Pengirim</th>
+		      			<th><?=$p['email']?></th>
+		      		</tr>
+		      		<tr>
+		      			<th>Subject</th>
+		      			<th><?=$p['subject']?></th>
+		      		</tr>
+		      		<tr>
+		      			<th>Pesan</th>
+		      			<th><?=$p['pesan']?></th>
+		      		</tr>
+		      	</table>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+
+		  </div>
+		</div>
+	<?php endforeach; ?>
+<?php endif; ?>
 </body>
 </html>
 

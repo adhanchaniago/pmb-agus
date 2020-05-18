@@ -14,6 +14,7 @@ class Pesan extends CI_Controller {
 	public function index()
 	{
 		$data['page'] = 'pesan';
+		$data['title'] = 'Kirim Pesan';
 		$this->load->view('frontend/index', $data);
 	}
 

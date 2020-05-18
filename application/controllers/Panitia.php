@@ -741,6 +741,20 @@ class Panitia extends CI_Controller {
         redirect('panitia/saw_kriteria_detail','refresh');
     }
 
+    public function update_saw_atribut()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $id       = $this->input->post('id_kriteria');
+        $data['atribut_kriteria']       = $this->input->post('atribut_kriteria');
+
+        $this->db->where('id_kriteria' , $id);
+        $this->db->update('data_kriteria', $data);
+        $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
+        redirect('panitia/saw_kriteria','refresh');
+    }
+
     public function del_saw_kriteria($id)
     {
         if ($this->session->userdata('panitia_login') != 1)

@@ -29,6 +29,7 @@
 </head>
 
 <body>
+    <?php $setting = $this->db->get('setting')->row();?>
     <div class="header">
         <?php include 'navigation.php'; ?>
     </div>

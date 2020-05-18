@@ -21,6 +21,7 @@ class Login extends CI_Controller {
             redirect(site_url('siswa/dashboard'), 'refresh');
 
 		$data['page'] = 'login';
+		$data['title'] = 'login';
 		$this->load->view('frontend/index', $data);
 	}
 
@@ -37,18 +38,21 @@ class Login extends CI_Controller {
 				$this->session->set_userdata('admin_login', '1');
 				$this->session->set_userdata('admin_id', $row->adm_id);
 				$this->session->set_userdata('admin_username', $row->username);
+				$this->session->set_userdata('login_type', 'admin');
 				$this->session->set_flashdata('success', 'berhasil login');
 				redirect(site_url('admin/dashboard'), 'refresh');
 			}elseif($row->type == 'panitia'){
 				$this->session->set_userdata('panitia_login', '1');
 				$this->session->set_userdata('panitia_id', $row->adm_id);
 				$this->session->set_userdata('panitia_username', $row->username);
+				$this->session->set_userdata('login_type', 'panitia');
 				$this->session->set_flashdata('success', 'berhasil login');
 				redirect(site_url('panitia/dashboard'), 'refresh');
 			}else{
 				$this->session->set_userdata('siswa_login', '1');
 				$this->session->set_userdata('siswa_id', $row->adm_id);
 				$this->session->set_userdata('siswa_username', $row->username);
+				$this->session->set_userdata('login_type', 'siswa');
 				$this->session->set_flashdata('success', 'berhasil login');
 				redirect(site_url('siswa/dashboard'), 'refresh');
 			}

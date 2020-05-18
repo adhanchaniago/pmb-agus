@@ -5,6 +5,15 @@
 		  <li><a href="#"><?=$title;?></a></li>
 		  <li class="active"><?=$title1;?></li>
 		</ol>
+		<?php if ($this->session->flashdata('success')) { ?>
+		  <div class="alert alert-success" role="alert">
+		    <?=$this->session->flashdata('success');?>
+		  </div>
+		<?php }else if ($this->session->flashdata('error')){?>
+		  <div class="alert alert-danger" role="alert">
+		    <?=$this->session->flashdata('error');?>
+		  </div>
+		<?php } ?>
 		<div class="row">
 			<div class="col-md-6 text-left">
 				<strong style="font-size:18pt;"><span class="fa fa-table"></span> Nilai Awal</strong>

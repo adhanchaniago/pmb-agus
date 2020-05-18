@@ -34,7 +34,7 @@
 					<th>
 						Asal Sekolah
 					</th>
-					<th colspan="2">
+					<th>
 						Aksi
 					</th>
 				</tr>
@@ -47,11 +47,9 @@
 						<td><?=$row['nisn'];?></td>
 						<td><?=$row['nama'];?></td>
 						<td><?=$row['asal_sekolah'];?></td>
-						<td width='35'>
+						<td>
 							<a class='btn btn-sm btn-primary' 
 								href="<?php echo site_url('admin/edit_pendaftar/'.$row['nisn']);?>">Edit</a>
-						</td>
-						<td width='35'>
 							<a class='btn btn-sm btn-danger' href="<?php echo site_url('admin/del_pendaftar/'.$row['nisn']);?>" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ?')">Hapus</a>
 						</td>
 					</tr>

@@ -741,6 +741,20 @@ class Admin extends CI_Controller {
         redirect('admin/saw_kriteria_detail','refresh');
     }
 
+    public function update_saw_atribut()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $id       = $this->input->post('id_kriteria');
+        $data['atribut_kriteria']       = $this->input->post('atribut_kriteria');
+
+        $this->db->where('id_kriteria' , $id);
+        $this->db->update('data_kriteria', $data);
+        $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
+        redirect('admin/saw_kriteria','refresh');
+    }
+
     public function del_saw_kriteria($id)
     {
         if ($this->session->userdata('admin_login') != 1)
@@ -803,12 +817,20 @@ class Admin extends CI_Controller {
         $peserta = $this->db->get('peserta_pendaftar')->result_array();
         $no = 1;
         foreach ($peserta as $p) {
-            $data['nisn']       = $this->input->post('nisn'.$no);
-            $data['jumlah']       = $this->input->post('jumlah'.$no);
-            $this->db->insert('hasil', $data);
+            $cek = $this->db->get_where('hasil', array('nisn' => $p['nisn']));
+            if ($cek->num_rows() > 0) {
+                $id = $cek->row()->hasil_id;
+                $data1['jumlah']       = $this->input->post('jumlah'.$no);
+                $this->db->where('hasil_id' , $id);
+                $this->db->update('hasil', $data1);
+            }else{
+                $data['nisn']       = $this->input->post('nisn'.$no);
+                $data['jumlah']       = $this->input->post('jumlah'.$no);
+                $this->db->insert('hasil', $data);
+            }
             $no++;
         }
-        $this->session->set_flashdata('success' , 'Hasil Berhasil Disimpan!');
+        $this->session->set_flashdata('success' , 'Hasil Berhasil Disimpan, Silahkan Lanjutkan ke Pengumuman');
         redirect(site_url('admin/saw_hasil'), 'refresh');
     }
 

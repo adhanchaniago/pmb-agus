@@ -18,41 +18,15 @@
 <div class="content">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <div class="widget widget-contact">
-                    <!-- widget search -->
-                    <h3 class="widget-title">Contact Info</h3>
-                    <address>
-                        <strong>Anawai</strong>
-                        <br> H.E.A. Mokodompit Street,
-                        <br> Kendari, POS 93232
-                        <br>
-                        <abbr title="Phone">P:</abbr> (+62) 822-4332-9590
-                    </address>
-                    <address>
-                        <strong>Contact Name</strong>
-                        <br>
-                        <a href="mailto:#">muazharin.alfan@studentpartner.com</a>
-                    </address>
-                </div>
-                <!-- /.widget search -->
-                <div class="widget widget-social">
-                    <div class="social-circle">
-                        <a href="#" class="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#" class="#"><i class="fa fa-google-plus"></i></a>
-                        <a href="#" class="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#" class="#"><i class="fa fa-youtube-play"></i></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-                        <h1>Pendaftar Tahun Ajaran <?=$setting->tahun_ajaran;?></h1>
-                        <p> Thank you for your submit.</p>
+                        <center>
+                        <h1>Pendaftar Calon Siswa Baru Tahun Ajaran <?=$setting->tahun_ajaran;?></h1>
+                        </center>
+                        <br>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <table class='table table-striped'>                 
+                            <table class='table table-striped data'>
                                 <thead>
                                     <tr>                         
                                         <th>No.</th>
