@@ -7,7 +7,7 @@
                     <div class="page-breadcrumb">
                         <ol class="breadcrumb">
                             <li><a href="home.php">Beranda</a></li>
-                            <li class="active">Daftar Sekarang</li>
+                            <li class="active">List Pendaftar</li>
                         </ol>
                     </div>
                 </div>

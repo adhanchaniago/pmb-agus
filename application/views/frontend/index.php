@@ -8,7 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Hair salon templates for mens hair cut service provider.">
     <meta name="keywords" content="hair salon website templates free download, html5 template, free responsive website templates, website layout,html5 website templates, template for website design, beauty HTML5 templates, cosmetics website templates free download">
-    <title><?php $title; ?></title>
+    <title><?php echo $title; ?></title>
     <!-- Bootstrap -->
     <link href="<?=base_url();?>public/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?=base_url();?>public/css/datepicker.css" rel="stylesheet">
@@ -18,6 +18,7 @@
     <link href="<?=base_url();?>public/css/font-awesome.min.css" rel="stylesheet">
     <!-- Style -->
     <link href="<?=base_url();?>public/css/style.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="<?= base_url() ?>assets/css/dataTables.bootstrap.min.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -47,9 +48,16 @@
     <script src="<?=base_url();?>public/js/sticky-header.js"></script>
     <script src="<?=base_url();?>public/js/bootstrap.min.js"></script>
     <script src="<?=base_url();?>public/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>assets/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>assets/js/dataTables.bootstrap.min.js"></script>
     <script>
     $(".input-group.date").datepicker({autoclose: true, todayHighlight: true});
     </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('.data').DataTable();
+    });
+</script>
 </body>
 
 </html>
