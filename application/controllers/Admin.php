@@ -6,11 +6,7 @@ class Admin extends CI_Controller {
 
 	public function __construct()
 	{
-		parent::__construct();
-        $this->load->model('MKriteria');
-        $this->load->model('MNilai');
-        $this->load->model('MPendaftar');
-        $this->load->model('MSAW');
+		parent::__construct();;
 		$this->load->database();
         $this->load->library('session');
     }

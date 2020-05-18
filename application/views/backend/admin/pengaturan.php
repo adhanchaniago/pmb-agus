@@ -13,35 +13,33 @@
     	<table width="100%" class="table table-striped table-bordered">
         <thead>
           <tr>
-            <td><h4>Nama Sekolah</h4></td>
-            <td><h4><?=$setting->nama_sekolah;?></h4></td>
+            <td>Nama Sekolah</td>
+            <td><?=$setting->nama_sekolah;?></td>
           </tr>
           <tr>
-            <td><h4>Tahun Ajaran</h4></td>
-            <td><h4><?=$setting->tahun_ajaran;?></h4></td>
+            <td>Tahun Ajaran</td>
+            <td><?=$setting->tahun_ajaran;?></td>
           </tr>
           <tr>
-            <td><h4>Kouta Pendaftaran</h4></td>
-            <td><h4><?=$setting->kouta_pendaftaran;?></h4></td>
+            <td>Kouta Pendaftaran</td>
+            <td><?=$setting->kouta_pendaftaran;?></td>
           </tr>
           <tr>
-            <td><h4>Alamat Sekolah</h4></td>
-            <td><h4><?=$setting->alamat_sekolah;?></h4></td>
+            <td>Alamat Sekolah</td>
+            <td><?=$setting->alamat_sekolah;?></td>
           </tr>
           <tr>
-            <td><h4>Email Sekolah</h4></td>
-            <td><h4><?=$setting->email_sekolah;?></h4></td>
+            <td>Email Sekolah</td>
+            <td><?=$setting->email_sekolah;?></td>
           </tr>
           <tr>
-            <td><h4>Telpon Sekolah</h4></td>
-            <td><h4><?=$setting->tel_sekolah;?></h4></td>
+            <td>Telpon Sekolah</td>
+            <td><?=$setting->tel_sekolah;?></td>
           </tr>
         </thead>
       </table>
-      <form method="post" action="<?=site_url('admin/edit_pengaturan');?>">
         <center>
-          <input type='submit' class='btn btn-sm btn-warning' name='simpan' value='Edit'>
+          <a href="<?=site_url('admin/edit_pengaturan');?>" class="btn btn-sm btn-warning">Ubah Pengaturan Dasar</a>
         </center>
-      </form>
   </div>
 </div>
