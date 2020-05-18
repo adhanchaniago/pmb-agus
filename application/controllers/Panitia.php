@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Controller {
+class Panitia extends CI_Controller {
 
 
 	public function __construct()
@@ -13,15 +13,15 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(site_url('login'), 'refresh');
-        if ($this->session->userdata('admin_login') == 1)
-            redirect(site_url('admin/dashboard'), 'refresh');
+        if ($this->session->userdata('panitia_login') == 1)
+            redirect(site_url('panitia/dashboard'), 'refresh');
 	}
 
 	public function dashboard()
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $pendaftar = $this->db->get('peserta_pendaftar')->result_array();
@@ -37,12 +37,12 @@ class Admin extends CI_Controller {
         $data['jumlah_prestasi'] = $prestasi;
         $data['jumlah_user'] = $user;
         $data['jumlah_pesan'] = $pesan;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
 	}
 
 	public function data_pendaftar()
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $pendaftar = $this->db->get('peserta_pendaftar')->result_array();
@@ -50,12 +50,12 @@ class Admin extends CI_Controller {
         $data['page']  = 'data_pendaftar';
         $data['title'] = 'Data Pendaftar';
         $data['pendaftar'] = $pendaftar;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
 	}
 
 	public function edit_pendaftar($nisn)
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $pendaftar = $this->db->get_where('peserta_pendaftar', array('nisn' => $nisn))->row();
@@ -76,12 +76,12 @@ class Admin extends CI_Controller {
         $data['pendaftar'] = $pendaftar;
         $data['lokasi'] = $lokasi->result_array();
         $data['prestasi'] = $prestasi->result_array();
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
 	}
 
 	public function update_pendaftar()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $nisn = $this->input->post('nisn');
@@ -148,12 +148,12 @@ class Admin extends CI_Controller {
         }
 
         $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
-        redirect('admin/data_pendaftar','refresh');
+        redirect('panitia/data_pendaftar','refresh');
     }
 
 	public function del_pendaftar($nisn)
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $this->db->where('nisn' , $nisn);
@@ -165,12 +165,12 @@ class Admin extends CI_Controller {
         $this->db->where('username' , $nisn);
         $this->db->delete('user');
         $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
-        redirect(site_url('admin/data_pendaftar'), 'refresh');
+        redirect(site_url('panitia/data_pendaftar'), 'refresh');
 	}
 
 	public function data_user()
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $user = $this->db->select('*')->from('user')->where('type !=','siswa')->get()->result_array();
@@ -178,22 +178,22 @@ class Admin extends CI_Controller {
         $data['page']  = 'data_user';
         $data['title'] = 'Data User';
         $data['user'] = $user;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
 	}
 
 	public function add_user()
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $data['page']  = 'add_user';
         $data['title'] = 'Tambah User Baru';
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
 	}
 
 	public function save_user()
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $data['username']       = $this->input->post('username');
@@ -202,12 +202,12 @@ class Admin extends CI_Controller {
 
         $this->db->insert('user' , $data);
         $this->session->set_flashdata('success', 'Data Berhasil Di Simpan');
-        redirect('admin/data_user','refresh');
+        redirect('panitia/data_user','refresh');
 	}
 
 	public function edit_user($id)
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $user = $this->db->get_where('user', array('adm_id' => $id))->row();
@@ -215,12 +215,12 @@ class Admin extends CI_Controller {
         $data['page']  = 'edit_user';
         $data['title'] = 'Edit Data User';
         $data['user'] = $user;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
 	}
 
 	public function update_user()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id       = $this->input->post('id');
@@ -231,23 +231,23 @@ class Admin extends CI_Controller {
         $this->db->where('adm_id' , $id);
         $this->db->update('user' , $data);
         $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
-        redirect('admin/data_user','refresh');
+        redirect('panitia/data_user','refresh');
     }
 
 	public function del_user($id)
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $this->db->where('adm_id' , $id);
         $this->db->delete('user');
         $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
-        redirect(site_url('admin/data_user'), 'refresh');
+        redirect(site_url('panitia/data_user'), 'refresh');
 	}
 
 	public function pesan()
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
 		$pesan = $this->db->get('pesan_peserta')->result_array();
@@ -255,12 +255,12 @@ class Admin extends CI_Controller {
         $data['page']  = 'pesan';
         $data['title'] = 'Pesan';
         $data['pesan'] = $pesan;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
 	}
 
 	public function lihat_pesan($id)
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
 		$pesan = $this->db->get_where('pesan_peserta', array('id_pesan' => $id))->row();
@@ -268,33 +268,33 @@ class Admin extends CI_Controller {
         $data['page']  = 'lihat_pesan';
         $data['title'] = 'Pesan';
         $data['pesan'] = $pesan;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
 	}
 
 	public function del_pesan($id)
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
 		$this->db->where('id_pesan' , $id);
         $this->db->delete('pesan_peserta');
         $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
-        redirect(site_url('admin/pesan'), 'refresh');
+        redirect(site_url('panitia/pesan'), 'refresh');
 	}
 
 	public function ubah_password()
 	{
-		if ($this->session->userdata('admin_login') != 1)
+		if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $data['page']  = 'ubah_password';
         $data['title'] = 'Ubah Password';
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
 	}
 
 	public function update_password()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $un = $this->session->userdata('admin_username');
@@ -309,19 +309,19 @@ class Admin extends CI_Controller {
                 $this->db->where('username' , $un);
                 $this->db->update('user' , $data);
                 $this->session->set_flashdata('success', 'Username & Password Berhasil Dirubah');
-                redirect('admin/dashboard', 'refresh');
+                redirect('panitia/dashboard', 'refresh');
             }
             $this->session->set_flashdata('error', 'Password Lama yang Anda Masukkan Salah');
-            redirect('admin/ubah_password', 'refresh');
+            redirect('panitia/ubah_password', 'refresh');
         }else{
             $this->session->set_flashdata('error', 'Password Baru Tidak Sama');
-            redirect('admin/ubah_password', 'refresh');
+            redirect('panitia/ubah_password', 'refresh');
         }
     }
 
     public function kriteria()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $kriteria = $this->db->get('data_kriteria')->result_array();
@@ -329,12 +329,12 @@ class Admin extends CI_Controller {
         $data['page']  = 'kriteria';
         $data['title'] = 'Metode AHP';
         $data['kriteria'] = $kriteria;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function add_kriteria()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $kriteria = $this->db->get('data_kriteria');
@@ -349,12 +349,12 @@ class Admin extends CI_Controller {
         $data['page']  = 'add_kriteria';
         $data['id'] = 'C'.$id;
         $data['title'] = 'Tambah Kriteria Baru';
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function save_kriteria()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $data['id_kriteria']       = $this->input->post('id_kriteria');
@@ -364,12 +364,12 @@ class Admin extends CI_Controller {
 
         $this->db->insert('data_kriteria' , $data);
         $this->session->set_flashdata('success', 'Data Berhasil Di Simpan');
-        redirect('admin/kriteria','refresh');
+        redirect('panitia/kriteria','refresh');
     }
 
     public function edit_kriteria($id)
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id_k = $id;
@@ -378,12 +378,12 @@ class Admin extends CI_Controller {
         $data['page']  = 'edit_kriteria';
         $data['title'] = 'Edit Data Kriteria';
         $data['kriteria'] = $sql;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function update_kriteria()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id       = $this->input->post('id_kriteria');
@@ -392,24 +392,24 @@ class Admin extends CI_Controller {
         $this->db->where('id_kriteria' , $id);
         $this->db->update('data_kriteria' , $data);
         $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
-        redirect('admin/kriteria','refresh');
+        redirect('panitia/kriteria','refresh');
     }
 
     public function del_kriteria($id)
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id_k = $id;
         $this->db->where('id_kriteria' , $id_k);
         $this->db->delete('data_kriteria');
         $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
-        redirect(site_url('admin/kriteria'), 'refresh');
+        redirect(site_url('panitia/kriteria'), 'refresh');
     }
 
     public function nilai()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $nilai = $this->db->get('nilai')->result_array();
@@ -417,22 +417,22 @@ class Admin extends CI_Controller {
         $data['page']  = 'nilai';
         $data['title'] = 'Metode AHP';
         $data['nilai'] = $nilai;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function add_nilai()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $data['page']  = 'add_nilai';
         $data['title'] = 'Tambah Nilai Baru';
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function save_nilai()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $data['jum_nilai']       = $this->input->post('jum_nilai');
@@ -440,12 +440,12 @@ class Admin extends CI_Controller {
 
         $this->db->insert('nilai' , $data);
         $this->session->set_flashdata('success', 'Data Berhasil Di Simpan');
-        redirect('admin/nilai','refresh');
+        redirect('panitia/nilai','refresh');
     }
 
     public function edit_nilai($id)
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id_k = $id;
@@ -454,12 +454,12 @@ class Admin extends CI_Controller {
         $data['page']  = 'edit_nilai';
         $data['title'] = 'Edit Data Nilai';
         $data['nilai'] = $sql;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function update_nilai()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id       = $this->input->post('id_nilai');
@@ -469,43 +469,43 @@ class Admin extends CI_Controller {
         $this->db->where('id_nilai' , $id);
         $this->db->update('nilai' , $data);
         $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
-        redirect('admin/nilai','refresh');
+        redirect('panitia/nilai','refresh');
     }
 
     public function del_nilai($id)
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id_k = $id;
         $this->db->where('id_nilai' , $id_k);
         $this->db->delete('nilai');
         $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
-        redirect(site_url('admin/nilai'), 'refresh');
+        redirect(site_url('panitia/nilai'), 'refresh');
     }
 
     public function ahp()
     {
         $analisa = $this->db->get('analisa_kriteria');
         if ($analisa->num_rows() > 0) {
-            redirect(site_url('admin/analisa_kriteria_table'), 'refresh');
+            redirect(site_url('panitia/analisa_kriteria_table'), 'refresh');
         }else{
-            redirect(site_url('admin/analisa_kriteria'), 'refresh');
+            redirect(site_url('panitia/analisa_kriteria'), 'refresh');
         }
     }
 
     public function del_analisa()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $this->db->empty_table('analisa_kriteria');
-        redirect(site_url('admin/ahp'), 'refresh');
+        redirect(site_url('panitia/ahp'), 'refresh');
     }
 
     public function analisa_kriteria()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $kriteria = $this->db->get('data_kriteria');
@@ -515,7 +515,7 @@ class Admin extends CI_Controller {
         $data['title'] = 'Metode AHP';
         $data['kriteria'] = $kriteria;
         $data['nilai'] = $nilai;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function ahp_proses()
@@ -571,7 +571,7 @@ class Admin extends CI_Controller {
                 $no++;
             }
         }
-        redirect(site_url('admin/ahp_proses1'), 'refresh');
+        redirect(site_url('panitia/ahp_proses1'), 'refresh');
     }
 
     public function ahp_proses1()
@@ -606,7 +606,7 @@ class Admin extends CI_Controller {
             $this->db->where('id_kriteria' , $row['id_kriteria']);
             $this->db->update('data_kriteria', $data_kr);
         }
-        redirect(site_url('admin/ahp_proses2'), 'refresh');
+        redirect(site_url('panitia/ahp_proses2'), 'refresh');
     }
 
     public function ahp_proses2()
@@ -644,12 +644,12 @@ class Admin extends CI_Controller {
             $this->db->where('id_kriteria' , $baris['id_kriteria']);
             $this->db->update('data_kriteria', $bobot);
         }
-        redirect(site_url('admin/analisa_kriteria_table'), 'refresh');
+        redirect(site_url('panitia/analisa_kriteria_table'), 'refresh');
     }
 
     public function analisa_kriteria_table()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $kriteria = $this->db->get('data_kriteria');
@@ -663,12 +663,12 @@ class Admin extends CI_Controller {
         $data['analisa'] = $analisa;
         $data['nilai'] = $nilai;
         $data['count'] = $kriteria->num_rows();
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function saw_kriteria()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $kriteria = $this->db->get('data_kriteria')->result_array();
@@ -677,12 +677,12 @@ class Admin extends CI_Controller {
         $data['title'] = 'Metode SAW';
         $data['title1'] = 'Data Kriteria';
         $data['kriteria'] = $kriteria;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function add_saw_kriteria()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $kriteria = $this->db->get('data_kriteria')->result_array();
@@ -691,12 +691,12 @@ class Admin extends CI_Controller {
         $data['title'] = 'Metode SAW';
         $data['title1'] = 'Data Kriteria Detail';
         $data['kriteria'] = $kriteria;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function save_saw_kriteria()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $data['id_kriteria']       = $this->input->post('id_kriteria');
@@ -705,12 +705,12 @@ class Admin extends CI_Controller {
 
         $this->db->insert('kriteria_detail' , $data);
         $this->session->set_flashdata('success', 'Data Berhasil Di Simpan');
-        redirect('admin/add_saw_kriteria','refresh');
+        redirect('panitia/add_saw_kriteria','refresh');
     }
 
     public function edit_saw_kriteria($id)
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id_k = $id;
@@ -722,12 +722,12 @@ class Admin extends CI_Controller {
         $data['title1'] = 'Edit Data Kriteria';
         $data['edit'] = $sql;
         $data['kriteria'] = $kriteria;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function update_saw_kriteria()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id       = $this->input->post('id_detail');
@@ -738,24 +738,24 @@ class Admin extends CI_Controller {
         $this->db->where('id_detail' , $id);
         $this->db->update('kriteria_detail', $data);
         $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
-        redirect('admin/saw_kriteria_detail','refresh');
+        redirect('panitia/saw_kriteria_detail','refresh');
     }
 
     public function del_saw_kriteria($id)
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id_k = $id;
         $this->db->where('id_detail' , $id_k);
         $this->db->delete('kriteria_detail');
         $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
-        redirect(site_url('admin/saw_kriteria_detail'), 'refresh');
+        redirect(site_url('panitia/saw_kriteria_detail'), 'refresh');
     }
 
     public function saw_kriteria_detail()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $kriteria = $this->db->get('data_kriteria')->result_array();
@@ -764,7 +764,7 @@ class Admin extends CI_Controller {
         $data['title'] = 'Metode SAW';
         $data['title1'] = 'Data Kriteria Detail';
         $data['kriteria'] = $kriteria;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function get_detail()
@@ -776,7 +776,7 @@ class Admin extends CI_Controller {
 
     public function saw_hasil()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $kriteria = $this->db->get('data_kriteria')->result_array();
@@ -792,12 +792,12 @@ class Admin extends CI_Controller {
         $data['kriteria'] = $kriteria;
         $data['siswa'] = $siswa->result_array();
         $data['peserta'] = $peserta;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function saw_hasil_simpan()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $peserta = $this->db->get('peserta_pendaftar')->result_array();
@@ -809,12 +809,12 @@ class Admin extends CI_Controller {
             $no++;
         }
         $this->session->set_flashdata('success' , 'Hasil Berhasil Disimpan!');
-        redirect(site_url('admin/saw_hasil'), 'refresh');
+        redirect(site_url('panitia/saw_hasil'), 'refresh');
     }
 
     public function pengumuman()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $this->db->select('*')
@@ -827,12 +827,12 @@ class Admin extends CI_Controller {
         $data['title'] = 'Pengumuman';
         $data['title1'] = 'Pengumuman Hasil Pendaftaran';
         $data['siswa'] = $siswa->result_array();
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function up_pengumuman()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
         
         $this->db->select('*')
@@ -860,12 +860,12 @@ class Admin extends CI_Controller {
             }
             $rank++;
         }
-        redirect(site_url('admin/pengumuman'), 'refresh');
+        redirect(site_url('panitia/pengumuman'), 'refresh');
     }
 
     public function pengaturan()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $setting = $this->db->get('setting')->row();
@@ -874,12 +874,12 @@ class Admin extends CI_Controller {
         $data['title'] = 'Pengaturan';
         $data['title1'] = 'Pengaturan Dasar';
         $data['setting'] = $setting;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function edit_pengaturan()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $setting = $this->db->get('setting')->row();
@@ -888,12 +888,12 @@ class Admin extends CI_Controller {
         $data['title'] = 'Pengaturan';
         $data['title1'] = 'Edit Pengaturan';
         $data['setting'] = $setting;
-        $this->load->view('backend/admin/index', $data);
+        $this->load->view('backend/panitia/index', $data);
     }
 
     public function update_pengaturan()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
         
         $data['nama_sekolah']       = $this->input->post('nama_sekolah');
@@ -905,7 +905,7 @@ class Admin extends CI_Controller {
         $this->db->where('id_setting' , '1');
         $this->db->update('setting', $data);
         $this->session->set_flashdata('success' , 'Pengaturan Berhasil Dirubah');
-        redirect(site_url('admin/pengaturan'), 'refresh');
+        redirect(site_url('panitia/pengaturan'), 'refresh');
     }
 
 }

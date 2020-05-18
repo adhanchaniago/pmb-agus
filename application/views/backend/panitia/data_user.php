@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12">
     <ol class="breadcrumb">
-      <li><a href="<?=site_url('admin');?>">Beranda</a></li>
+      <li><a href="<?=site_url('panitia');?>">Beranda</a></li>
       <li class="active"><a href="#"><?=$title;?></a></li>
     </ol>
     	<div class="row">
@@ -10,7 +10,7 @@
     		</div>
         <div class="col-md-6 text-right">
           <div class="btn-group">
-            <button type="button" onclick="location.href='<?=site_url('admin/add_user')?>'" class="btn btn-primary"><span class="fa fa-clone"></span> Tambah User</button>
+            <button type="button" onclick="location.href='<?=site_url('panitia/add_user')?>'" class="btn btn-primary"><span class="fa fa-clone"></span> Tambah User</button>
           </div>
         </div>
         <?php if ($this->session->flashdata('success')) { ?>
@@ -54,10 +54,10 @@
 						<td><?=$row['type'];?></td>
 						<td width='35' align='center'>
 							<a class='btn btn-sm btn-primary' 
-								href="<?php echo site_url('admin/edit_user/'.$row['adm_id']);?>">Edit</a>
+								href="<?php echo site_url('panitia/edit_user/'.$row['adm_id']);?>">Edit</a>
 						</td>
 						<td width='35' align='center'>
-							<a class='btn btn-sm btn-danger' href="<?php echo site_url('admin/del_user/'.$row['adm_id']);?>" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ?')">Hapus</a>
+							<a class='btn btn-sm btn-danger' href="<?php echo site_url('panitia/del_user/'.$row['adm_id']);?>" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ?')">Hapus</a>
 						</td>
 					</tr>
 				<?php endforeach; ?>

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12">
     <ol class="breadcrumb">
-      <li><a href="<?=site_url('admin');?>">Beranda</a></li>
+      <li><a href="<?=site_url('panitia');?>">Beranda</a></li>
       <li class="active"><a href="#"><?=$title;?></a></li>
     </ol>
     	<div class="row">
@@ -49,10 +49,10 @@
 						<td><?=$row['asal_sekolah'];?></td>
 						<td width='35'>
 							<a class='btn btn-sm btn-primary' 
-								href="<?php echo site_url('admin/edit_pendaftar/'.$row['nisn']);?>">Edit</a>
+								href="<?php echo site_url('panitia/edit_pendaftar/'.$row['nisn']);?>">Edit</a>
 						</td>
 						<td width='35'>
-							<a class='btn btn-sm btn-danger' href="<?php echo site_url('admin/del_pendaftar/'.$row['nisn']);?>" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ?')">Hapus</a>
+							<a class='btn btn-sm btn-danger' href="<?php echo site_url('panitia/del_pendaftar/'.$row['nisn']);?>" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ?')">Hapus</a>
 						</td>
 					</tr>
 				<?php endforeach; ?>
