@@ -49,7 +49,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <div class="row">
                     <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-                        <h1>Pendaftar Tahun Ajaran 2017/2018</h1>
+                        <h1>Pendaftar Tahun Ajaran <?=$setting->tahun_ajaran;?></h1>
                         <p> Thank you for your submit.</p>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <table class='table table-striped'>                 

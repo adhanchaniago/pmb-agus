@@ -6,7 +6,10 @@ class Bantuan extends CI_Controller {
 
 	public function index()
 	{
+		$setting = $this->db->get('setting')->row();
+
 		$data['page'] = 'bantuan';
+		$data['setting'] = $setting;
 		$this->load->view('frontend/index', $data);
 	}
 }

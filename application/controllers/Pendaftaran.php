@@ -205,8 +205,10 @@ class Pendaftaran extends CI_Controller {
 	{
 
 		$daftar = $this->db->get('peserta_pendaftar')->result_array();
+		$setting = $this->db->get('setting')->row();
 
 		$data['daftar'] = $daftar;
+		$data['setting'] = $setting;
 		$data['page'] = 'lihat_daftar';
 		$data['title'] = 'Daftar Pendaftar';
 		$this->load->view('frontend/index', $data);
