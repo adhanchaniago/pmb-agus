@@ -55,7 +55,11 @@
                                     </div>
                                     <label class='control-label'>Jumlah Nilai Semester 5 (Bahasa Indonesia, Matematika, IPA, IPA, Bahasa Inggris)</label>
                                     <div class="col-md-6">
-                                        <input type='number' name='sem5' placeholder='' class='form-control' value="<?=$raport->sem5;?>" required>
+                                        <?php foreach ($nilai as $row): ?>
+                                            <input type="radio" id="<?=$row['id_detail']?>" name="nilai" value="<?=$row['id_detail']?>">
+                                            <label for="<?=$row['id_detail']?>"><?=$row['nama_detail']?></label><br>
+                                        <?php endforeach; ?>
+
                                     </div>
                                 </div>
                                 <div class='col-md-12'>

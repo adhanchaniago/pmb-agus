@@ -1,3 +1,5 @@
+<link href="<?=base_url();?>public/css/style1.css" rel="stylesheet">
+
 <div class="page-header"><!-- page header -->
         <div class="container">
             <div class="row">

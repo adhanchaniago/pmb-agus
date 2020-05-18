@@ -45,7 +45,7 @@
 					<li <?php if($page=="analisa_kriteria" || $page=="analisa_kriteria_table") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/ahp','<span class=entypo-chart-bar>Perbandingan Kriteria</span>'); ?></li>
 				</ul>
 			</li>
-			<li <?php if($page=="saw_kriteria" || $page=="saw_kriteria_detail" || $page=="add_saw_kriteria" || $page=="edit_saw_kriteria") echo 'class="active opened active multiple-expanded" '; ?>>
+			<li <?php if($page=="saw_kriteria" || $page=="saw_kriteria_detail" || $page=="add_saw_kriteria" || $page=="edit_saw_kriteria" || $page=="saw_hasil") echo 'class="active opened active multiple-expanded" '; ?>>
 				<a href="ui-panels.html">
 					<i class="entypo-book"></i>
 					<span>Metode SAW</span>
@@ -53,19 +53,14 @@
 				<ul>
 					<li <?php if($page=="saw_kriteria") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/saw_kriteria','<span class=entypo-direction>Kriteria</span>'); ?></li>
 					<li <?php if($page=="saw_kriteria_detail" || $page=="add_saw_kriteria" || $page=="edit_saw_kriteria") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/saw_kriteria_detail','<span class=entypo-switch> Kriteria Detail</span>'); ?></li>
-					<li <?php if($page=="saw_hasil" || $page=="Hasil") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/saw_hasil','<span class=entypo-chart-bar>Hasil Seleksi</span>'); ?></li>
+					<li <?php if($page=="saw_hasil") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/saw_hasil','<span class=entypo-chart-bar>Hasil Seleksi</span>'); ?></li>
 				</ul>
 			</li>
+			<li <?php if($page=="pengumuman") echo 'class="active opened active" '; ?>><?= anchor('admin/pengumuman','<i class=entypo-docs></i><span>Pengumuman</span>'); ?></li>
 			<li <?php if($page=="pesan" || $page=="lihat_pesan") echo 'class="active opened active" '; ?>><?= anchor('admin/pesan','<i class=entypo-mail></i><span>Pesan</span>'); ?></li>
-			<!-- <li <?php if($page=="Auth" ||$page=="auth") echo 'class="active opened active multiple-expanded" '; ?>>
-				<a href="ui-panels.html">
-					<i class="entypo-tools"></i>
-					<span>Pengaturan</span>
-				</a>
-				<ul>
-					<li <?php if($page=="Auth" || $page=="auth") echo 'class="active opened active multiple-expanded" '; ?>><?= anchor('admin/Auth','<span class=entypo-user> Users</span>'); ?></li>
-				</ul>
-			</li> -->
+			<li <?php if($page=="pengaturan") echo 'class="active opened active multiple-expanded" '; ?>>
+				<?= anchor('admin/pengaturan','<i class=entypo-tools></i><span>Pengaturan</span>'); ?>
+			</li>
 			<li><?= anchor('login/logout','<i class=entypo-logout></i><span>Logout</span>'); ?></li>
 		</ul>
 	</div>

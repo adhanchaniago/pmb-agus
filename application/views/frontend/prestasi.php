@@ -6,7 +6,7 @@
                     <h2 class="page-title">Daftar Sekarang</h2>
                     <div class="page-breadcrumb">
                         <ol class="breadcrumb">
-                            <li><a href="<?=base_url();?>">Beranda</a></li>
+                            <li><a href="<?php echo base_url();?>">Beranda</a></li>
                             <li class="active">Daftar Sekarang</li>
                         </ol>
                     </div>
@@ -32,7 +32,7 @@
                     <address>
                         <strong>Contact Name</strong>
                         <br>
-                        <a href="mailto:#">muazharin.alfan@studentpartner.com</a>
+                        <a href="mailto:#">agusfb@gmail.com</a>
                     </address>
                 </div>
                 <!-- /.widget search -->
@@ -48,7 +48,6 @@
             
             <div class='col-lg-8 col-md-8 col-sm-8 col-xs-12'>
                 <div class='row'>
-                    
                     <?php if ($this->session->flashdata('success')) { ?>
                         <div class="alert alert-success" role="alert">
                           <?=$this->session->flashdata('success');?>
@@ -88,8 +87,11 @@
                                     </select>
                                 </div>
                                 <div class='col-md-6'>
-                                    <label class='control-label'>jarak ke sekolah</label>
-                                    <input type='text' name='jarak_sekolah' placeholder='' class='form-control'>
+                                    <label class='control-label'>jarak ke sekolah</label><br>
+                                    <?php foreach ($lokasi as $row): ?>
+                                        <input type="radio" id="<?=$row['id_detail']?>" name="jarak_sekolah" value="<?=$row['id_detail']?>">
+                                        <label for="<?=$row['id_detail']?>"><?=$row['nama_detail']?></label><br>
+                                    <?php endforeach; ?>
                                 </div>
                                 <div class='col-md-6'>
                                     <label class='control-label'>tempat lahir*</label>
@@ -176,8 +178,11 @@
                                     <input type='tel' name='hp_ortu' placeholder='' class='form-control' required>
                                 </div>
                                 <div class='col-md-6'>
-                                    <label class='control-label'>rangking semester terakhir</label>
-                                    <input type='number' name='rangking' placeholder='' class='form-control'>
+                                    <label class='control-label'>Ranking semester terakhir</label><br>
+                                    <?php foreach ($prestasi as $row): ?>
+                                        <input type="radio" id="<?=$row['id_detail']?>" name="rangking" value="<?=$row['id_detail']?>">
+                                        <label for="<?=$row['id_detail']?>"><?=$row['nama_detail']?></label><br>
+                                    <?php endforeach; ?>
                                 </div>
                                 <div class='col-md-12'>
                                     <div class='form-group'>

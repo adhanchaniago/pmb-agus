@@ -7,6 +7,10 @@ class Admin extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+        $this->load->model('MKriteria');
+        $this->load->model('MNilai');
+        $this->load->model('MPendaftar');
+        $this->load->model('MSAW');
 		$this->load->database();
         $this->load->library('session');
     }
@@ -59,10 +63,23 @@ class Admin extends CI_Controller {
             redirect(base_url(), 'refresh');
 
         $pendaftar = $this->db->get_where('peserta_pendaftar', array('nisn' => $nisn))->row();
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nama_detail, kriteria_detail.id_detail, kriteria_detail.nilai')
+         ->from('kriteria_detail')
+         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+         ->where('data_kriteria.nama_kriteria', 'Lokasi');
+        $lokasi = $this->db->get();
+
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nama_detail, kriteria_detail.id_detail, kriteria_detail.nilai')
+         ->from('kriteria_detail')
+         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+         ->where('data_kriteria.nama_kriteria', 'Prestasi');
+        $prestasi = $this->db->get();
 
         $data['page']  = 'edit_pendaftar';
         $data['title'] = 'Edit Data Siswa';
         $data['pendaftar'] = $pendaftar;
+        $data['lokasi'] = $lokasi->result_array();
+        $data['prestasi'] = $prestasi->result_array();
         $this->load->view('backend/admin/index', $data);
 	}
 
@@ -93,9 +110,47 @@ class Admin extends CI_Controller {
         $data['penghasilan_ayah']       = $this->input->post('penghasilan_ayah');
         $data['penghasilan_ibu']        = $this->input->post('penghasilan_ibu');
         $data['ranking']        = $this->input->post('rangking');
-
         $this->db->where('nisn' , $nisn);
         $this->db->update('peserta_pendaftar' , $data);
+
+        $id_jarak = $this->input->post('jarak_sekolah');
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
+                 ->from('kriteria_detail')
+                 ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+                 ->where('kriteria_detail.id_detail', $id_jarak);
+        $jarak = $this->db->get()->row();
+        $cek = $this->db->get_where('nilai_awal', array('nisn' => $nisn, 'id_kriteria' => $jarak->id_kriteria));
+        $a = $cek->row();
+        if ($cek->num_rows() == null) {
+            $data5['nisn'] = $nisn;
+            $data5['id_kriteria'] = $jarak->id_kriteria;
+            $data5['nilai'] = $jarak->nilai;
+            $this->db->insert('nilai_awal', $data5);
+        }else{
+            $data6['nilai'] = $jarak->nilai;
+            $this->db->where('id_nilai_awal' , $a->id_nilai_awal);
+            $this->db->update('nilai_awal' , $data6);
+        }
+
+        $id_rank = $this->input->post('rangking');
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
+                 ->from('kriteria_detail')
+                 ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+                 ->where('kriteria_detail.id_detail', $id_rank);
+        $rank = $this->db->get()->row();
+        $cek = $this->db->get_where('nilai_awal', array('nisn' => $nisn, 'id_kriteria' => $rank->id_kriteria));
+        $a = $cek->row();
+        if ($cek->num_rows() == null) {
+            $data7['nisn'] = $nisn;
+            $data7['id_kriteria'] = $rank->id_kriteria;
+            $data7['nilai'] = $rank->nilai;
+            $this->db->insert('nilai_awal', $data7);
+        }else{
+            $data8['nilai'] = $rank->nilai;
+            $this->db->where('id_nilai_awal' , $a->id_nilai_awal);
+            $this->db->update('nilai_awal' , $data8);
+        }
+
         $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
         redirect('admin/data_pendaftar','refresh');
     }
@@ -459,37 +514,6 @@ class Admin extends CI_Controller {
 
         $kriteria = $this->db->get('data_kriteria');
         $nilai = $this->db->get('nilai')->result_array();
-        // $kriteriaCount = $kriteria->num_rows();
-
-        // $r = [];
-        // $kriterias = $kriteria->result_array();
-        // foreach ($kriterias as $kr) {
-        //     $kriteriass = $this->db->get_where('data_kriteria', array('id_kriteria' => $kr['id_kriteria']))->row();
-        //     $pcs = explode("C", $kriteriass->id_kriteria);
-        //     $c = $kriteriaCount - $pcs[1];
-
-        //     if ($c>=1) {
-        //         $r[$kr['id_kriteria']] = $c;
-        //     }
-        // }
-        // var_dump($r);
-        // $no=1;
-        // foreach ($r as $k => $v){
-        //     for ($i=1; $i<=$v; $i++){
-        //         $cek = $this->db->get_where('data_kriteria', array('id_kriteria' => $k))->result_array();
-        //         foreach($cek as $data){
-        //             $row = $this->db->get_where('data_kriteria', array('id_kriteria' => $k))->row();
-        //             $baris1 = $row->nama_kriteria;
-        //             $pcs = explode("C", $k); $nid = "C".($pcs[1]+$i);
-        //             $rows = $this->db->get_where('data_kriteria', array('id_kriteria' => $nid))->row();
-        //             $baris2 = $rows->nama_kriteria;
-
-        //             var_dump($baris1);
-        //             var_dump($baris2);
-        //         }$no++;
-        //     }
-        // }
-        
 
         $data['page']  = 'analisa_kriteria';
         $data['title'] = 'Metode AHP';
@@ -752,6 +776,75 @@ class Admin extends CI_Controller {
         $kode = $this->input->post('id',TRUE);
         $data = $this->db->get_where('kriteria_detail', array('id_kriteria' => $kode))->result();
         echo json_encode($data);
+    }
+
+    public function saw_hasil()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $kriteria = $this->db->get('data_kriteria')->result_array();
+        $this->db->select('peserta_pendaftar.nama, peserta_pendaftar.jarak_sekolah, nilai_raport.nilai, peserta_pendaftar.ranking')
+         ->from('peserta_pendaftar')
+         ->join('nilai_raport', 'peserta_pendaftar.nisn = nilai_raport.nisn');
+        $siswa = $this->db->get();
+        $peserta = $this->db->get('peserta_pendaftar')->result_array();
+
+        $data['page']  = 'saw_hasil';
+        $data['title'] = 'Metode SAW';
+        $data['title1'] = 'Hasil Perhitungan';
+        $data['kriteria'] = $kriteria;
+        $data['siswa'] = $siswa->result_array();
+        $data['peserta'] = $peserta;
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function saw_hasil_simpan()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $peserta = $this->db->get('peserta_pendaftar')->result_array();
+        $no = 1;
+        foreach ($peserta as $p) {
+            $data['nisn']       = $this->input->post('nisn'.$no);
+            $data['jumlah']       = $this->input->post('jumlah'.$no);
+            $this->db->insert('hasil', $data);
+            $no++;
+        }
+        $this->session->set_flashdata('success' , 'Hasil Berhasil Disimpan!');
+        redirect(site_url('admin/saw_hasil'), 'refresh');
+    }
+
+    public function pengumuman()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $this->db->select('*')
+         ->from('peserta_pendaftar')
+         ->join('hasil', 'peserta_pendaftar.nisn = hasil.nisn');
+        $siswa = $this->db->get();
+
+        $data['page']  = 'pengumuman';
+        $data['title'] = 'Pengumuman';
+        $data['title1'] = 'Pengumuman Hasil Pendaftaran';
+        $data['siswa'] = $siswa->result_array();
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function pengaturan()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $setting = $this->db->get('setting')->row();
+
+        $data['page']  = 'pengaturan';
+        $data['title'] = 'Pengaturan';
+        $data['title1'] = 'Pengaturan Dasar';
+        $data['setting'] = $setting;
+        $this->load->view('backend/admin/index', $data);
     }
 
 }

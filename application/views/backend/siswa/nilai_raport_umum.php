@@ -57,6 +57,14 @@
                                     <div class="col-md-6">
                                         <input type='number' name='sem5' placeholder='' class='form-control' value="<?=$raport->sem5;?>" required>
                                     </div>
+
+                                    <label class='control-label'>Total Semua Nilai Semester 1-5 (Bahasa Indonesia, Matematika, IPA, IPA, Bahasa Inggris)</label>
+                                    <div class="col-md-6">
+                                        <?php foreach ($nilai as $row): ?>
+                                            <input type="radio" id="<?=$row['id_detail']?>" name="nilai" value="<?=$row['id_detail']?>" <?php if ($raport->nilai == $row['id_detail']) { echo 'checked';}?>>
+                                            <label for="<?=$row['id_detail']?>"><?=$row['nama_detail']?></label><br>
+                                        <?php endforeach; ?>
+                                    </div>
                                 </div>
                                 <div class='col-md-12'>
                                     <div class='form-group'>

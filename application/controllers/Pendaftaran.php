@@ -18,8 +18,23 @@ class Pendaftaran extends CI_Controller {
 
 	public function umum()
 	{
+
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nama_detail, kriteria_detail.id_detail, kriteria_detail.nilai')
+         ->from('kriteria_detail')
+         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+         ->where('data_kriteria.nama_kriteria', 'Lokasi');
+        $lokasi = $this->db->get();
+
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nama_detail, kriteria_detail.id_detail, kriteria_detail.nilai')
+         ->from('kriteria_detail')
+         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+         ->where('data_kriteria.nama_kriteria', 'Prestasi');
+        $prestasi = $this->db->get();
+
 		$data['page'] = 'umum';
 		$data['title'] = 'Pendaftaran Jalur Umum';
+		$data['lokasi'] = $lokasi->result_array();
+		$data['prestasi'] = $prestasi->result_array();
 		$this->load->view('frontend/index', $data);
 	}
 
@@ -62,12 +77,33 @@ class Pendaftaran extends CI_Controller {
 			$data2['username'] = $this->input->post('nisn');
 			$data2['password'] = md5($this->input->post('nisn'));
 			$data2['type'] = 'siswa';
-
 			$this->db->insert('user', $data2);
 
 			$data3['nisn'] = $this->input->post('nisn');
-
 			$this->db->insert('nilai_raport', $data3);
+
+			$id_jarak = $this->input->post('jarak_sekolah');
+			$this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
+			         ->from('kriteria_detail')
+			         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+			         ->where('kriteria_detail.id_detail', $id_jarak);
+	        $jarak = $this->db->get()->row();
+	        $data4['nisn'] = $this->input->post('nisn');
+			$data4['id_kriteria'] = $jarak->id_kriteria;
+			$data4['nilai'] = $jarak->nilai;
+			$this->db->insert('nilai_awal', $data4);
+
+			$id_rank = $this->input->post('rangking');
+			$this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
+			         ->from('kriteria_detail')
+			         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+			         ->where('kriteria_detail.id_detail', $id_rank);
+	        $rank = $this->db->get()->row();
+	        $data5['nisn'] = $this->input->post('nisn');
+			$data5['id_kriteria'] = $rank->id_kriteria;
+			$data5['nilai'] = $rank->nilai;
+			$this->db->insert('nilai_awal', $data5);
+
 			$this->session->set_flashdata('success' , 'Berhasil Daftar, Silahkan Login');
 			redirect(site_url('login'), 'refresh');
 		}
@@ -75,6 +111,20 @@ class Pendaftaran extends CI_Controller {
 
 	public function prestasi()
 	{
+		$this->db->select('data_kriteria.id_kriteria, kriteria_detail.nama_detail, kriteria_detail.id_detail, kriteria_detail.nilai')
+         ->from('kriteria_detail')
+         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+         ->where('data_kriteria.nama_kriteria', 'Lokasi');
+        $lokasi = $this->db->get();
+
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nama_detail, kriteria_detail.id_detail, kriteria_detail.nilai')
+         ->from('kriteria_detail')
+         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+         ->where('data_kriteria.nama_kriteria', 'Prestasi');
+        $prestasi = $this->db->get();
+
+		$data['lokasi'] = $lokasi->result_array();
+		$data['prestasi'] = $prestasi->result_array();
 		$data['page'] = 'prestasi';
 		$data['title'] = 'Pendaftaran Jalur Prestasi';
 		$this->load->view('frontend/index', $data);
@@ -119,12 +169,33 @@ class Pendaftaran extends CI_Controller {
 			$data2['username'] = $this->input->post('nisn');
 			$data2['password'] = md5($this->input->post('nisn'));
 			$data2['type'] = 'siswa';
-
 			$this->db->insert('user', $data2);
 
 			$data3['nisn'] = $this->input->post('nisn');
-
 			$this->db->insert('nilai_raport', $data3);
+
+			$id_jarak = $this->input->post('jarak_sekolah');
+			$this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
+			         ->from('kriteria_detail')
+			         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+			         ->where('kriteria_detail.id_detail', $id_jarak);
+	        $jarak = $this->db->get()->row();
+	        $data4['nisn'] = $this->input->post('nisn');
+			$data4['id_kriteria'] = $jarak->id_kriteria;
+			$data4['nilai'] = $jarak->nilai;
+			$this->db->insert('nilai_awal', $data4);
+
+			$id_rank = $this->input->post('rangking');
+			$this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
+			         ->from('kriteria_detail')
+			         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+			         ->where('kriteria_detail.id_detail', $id_rank);
+	        $rank = $this->db->get()->row();
+	        $data5['nisn'] = $this->input->post('nisn');
+			$data5['id_kriteria'] = $rank->id_kriteria;
+			$data5['nilai'] = $rank->nilai;
+			$this->db->insert('nilai_awal', $data5);
+
 			$this->session->set_flashdata('success' , 'Berhasil Daftar, Silahkan Login');
 			redirect(site_url('login'), 'refresh');
 		}

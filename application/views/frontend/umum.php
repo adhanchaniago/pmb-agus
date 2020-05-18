@@ -87,8 +87,11 @@
                                     </select>
                                 </div>
                                 <div class='col-md-6'>
-                                    <label class='control-label'>jarak ke sekolah</label>
-                                    <input type='text' name='jarak_sekolah' placeholder='' class='form-control'>
+                                    <label class='control-label'>jarak ke sekolah</label><br>
+                                    <?php foreach ($lokasi as $row): ?>
+                                        <input type="radio" id="<?=$row['id_detail']?>" name="jarak_sekolah" value="<?=$row['id_detail']?>">
+                                        <label for="<?=$row['id_detail']?>"><?=$row['nama_detail']?></label><br>
+                                    <?php endforeach; ?>
                                 </div>
                                 <div class='col-md-6'>
                                     <label class='control-label'>tempat lahir*</label>
@@ -175,8 +178,11 @@
                                     <input type='tel' name='hp_ortu' placeholder='' class='form-control' required>
                                 </div>
                                 <div class='col-md-6'>
-                                    <label class='control-label'>rangking semester terakhir</label>
-                                    <input type='number' name='rangking' placeholder='' class='form-control'>
+                                    <label class='control-label'>Ranking semester terakhir</label><br>
+                                    <?php foreach ($prestasi as $row): ?>
+                                        <input type="radio" id="<?=$row['id_detail']?>" name="rangking" value="<?=$row['id_detail']?>">
+                                        <label for="<?=$row['id_detail']?>"><?=$row['nama_detail']?></label><br>
+                                    <?php endforeach; ?>
                                 </div>
                                 <div class='col-md-12'>
                                     <div class='form-group'>

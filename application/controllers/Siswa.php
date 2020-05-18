@@ -26,9 +26,23 @@ class Siswa extends CI_Controller {
         $nisn = $this->session->userdata('siswa_username');
         $siswa = $this->db->get_where('peserta_pendaftar', array('nisn' => $nisn))->row();
 
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nama_detail, kriteria_detail.id_detail, kriteria_detail.nilai')
+         ->from('kriteria_detail')
+         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+         ->where('data_kriteria.nama_kriteria', 'Lokasi');
+        $lokasi = $this->db->get();
+
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nama_detail, kriteria_detail.id_detail, kriteria_detail.nilai')
+         ->from('kriteria_detail')
+         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+         ->where('data_kriteria.nama_kriteria', 'Prestasi');
+        $prestasi = $this->db->get();
+
         $data['page']  = 'biodata';
         $data['title'] = 'Biodata Siswa';
         $data['siswa'] = $siswa;
+        $data['lokasi'] = $lokasi->result_array();
+        $data['prestasi'] = $prestasi->result_array();
         $this->load->view('backend/siswa/index', $data);
 	}
 
@@ -59,9 +73,49 @@ class Siswa extends CI_Controller {
         $data['penghasilan_ayah']       = $this->input->post('penghasilan_ayah');
         $data['penghasilan_ibu']        = $this->input->post('penghasilan_ibu');
         $data['ranking']        = $this->input->post('rangking');
-
         $this->db->where('nisn' , $nisn);
         $this->db->update('peserta_pendaftar' , $data);
+
+        $id_jarak = $this->input->post('jarak_sekolah');
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
+                 ->from('kriteria_detail')
+                 ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+                 ->where('kriteria_detail.id_detail', $id_jarak);
+        $jarak = $this->db->get()->row();
+
+        $cek = $this->db->get_where('nilai_awal', array('nisn' => $nisn, 'id_kriteria' => $jarak->id_kriteria));
+        $a = $cek->row();
+        if ($cek->num_rows() == null) {
+            $data5['nisn'] = $nisn;
+            $data5['id_kriteria'] = $jarak->id_kriteria;
+            $data5['nilai'] = $jarak->nilai;
+            $this->db->insert('nilai_awal', $data5);
+        }else{
+            $data6['nilai'] = $jarak->nilai;
+            $this->db->where('id_nilai_awal' , $a->id_nilai_awal);
+            $this->db->update('nilai_awal' , $data6);
+        }
+
+        $id_rank = $this->input->post('rangking');
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
+                 ->from('kriteria_detail')
+                 ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+                 ->where('kriteria_detail.id_detail', $id_rank);
+        $rank = $this->db->get()->row();
+
+        $cek = $this->db->get_where('nilai_awal', array('nisn' => $nisn, 'id_kriteria' => $rank->id_kriteria));
+        $a = $cek->row();
+        if ($cek->num_rows() == null) {
+            $data7['nisn'] = $nisn;
+            $data7['id_kriteria'] = $rank->id_kriteria;
+            $data7['nilai'] = $rank->nilai;
+            $this->db->insert('nilai_awal', $data7);
+        }else{
+            $data8['nilai'] = $rank->nilai;
+            $this->db->where('id_nilai_awal' , $a->id_nilai_awal);
+            $this->db->update('nilai_awal' , $data8);
+        }
+
         $this->session->set_flashdata('success', 'Data Berhasil Di Simpan');
         redirect('siswa/dashboard','refresh');
     }
@@ -80,8 +134,16 @@ class Siswa extends CI_Controller {
             $page = 'nilai_raport_prestasi';
         }
 
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nama_detail, kriteria_detail.id_detail')
+         ->from('kriteria_detail')
+         ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+         ->where('data_kriteria.nama_kriteria', 'Nilai');
+        $nilai = $this->db->get();
+
+        
         $data['page']  = $page;
         $data['raport']  = $raport;
+        $data['nilai'] = $nilai->result_array();
         $data['title'] = 'Nilai Raport Siswa';
         $this->load->view('backend/siswa/index', $data);
     }
@@ -98,9 +160,30 @@ class Siswa extends CI_Controller {
         $data['sem4'] = $this->input->post('sem4');
         $data['sem5'] = $this->input->post('sem5');
         $data['total'] = ($data['sem1'] + $data['sem2'] + $data['sem3'] + $data['sem4'] + $data['sem5']);
-
+        $data['nilai'] = $this->input->post('nilai');
         $this->db->where('nisn' , $nisn);
         $this->db->update('nilai_raport' , $data);
+
+        $id_nilai = $this->input->post('nilai');
+        $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
+                 ->from('kriteria_detail')
+                 ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
+                 ->where('kriteria_detail.id_detail', $id_nilai);
+        $nilai = $this->db->get()->row();
+
+        $cek = $this->db->get_where('nilai_awal', array('nisn' => $nisn, 'id_kriteria' => $nilai->id_kriteria));
+        $a = $cek->row();
+        if ($cek->num_rows() == null) {
+            $data5['nisn'] = $nisn;
+            $data5['id_kriteria'] = $nilai->id_kriteria;
+            $data5['nilai'] = $nilai->nilai;
+            $this->db->insert('nilai_awal', $data5);
+        }else{
+            $data6['nilai'] = $nilai->nilai;
+            $this->db->where('id_nilai_awal' , $a->id_nilai_awal);
+            $this->db->update('nilai_awal' , $data6);
+        }
+
         $this->session->set_flashdata('success' , 'Nilai Berhasil Disimpan');
         redirect(site_url('siswa/nilai_raport'), 'refresh');
     }

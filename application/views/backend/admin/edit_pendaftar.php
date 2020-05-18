@@ -51,7 +51,10 @@
 				<div class='form-group'>
 					<label class='col-md-2 control-label'>Jarak ke Sekolah</label>
 					<div class='col-md-10'>
-						<input type='number' name='jarak_sekolah' value="<?=$pendaftar->jarak_sekolah;?>" class='form-control'/>
+                        <?php foreach ($lokasi as $row): ?>
+                            <input type="radio" id="<?=$row['id_detail']?>" name="jarak_sekolah" value="<?=$row['id_detail']?>" <?php if ($pendaftar->jarak_sekolah == $row['id_detail']) { echo 'checked';}?>>
+                            <label for="<?=$row['id_detail']?>"><?=$row['nama_detail']?></label><br>
+                        <?php endforeach; ?>
 					</div>
 				</div>
 				<div class='form-group'>
@@ -161,7 +164,10 @@
 				<div class='form-group'>
 					<label class='col-md-2 control-label' >Ranking Semester Terakhir</label>
 					<div class='col-md-10'>
-						<input type='text' name='tggungan2' placeholder='' class='form-control' value="<?=$pendaftar->ranking;?>">
+						<?php foreach ($prestasi as $row): ?>
+                            <input type="radio" id="<?=$row['id_detail']?>" name="rangking" value="<?=$row['id_detail']?>" <?php if ($pendaftar->ranking == $row['id_detail']) { echo 'checked';}?>>
+                            <label for="<?=$row['id_detail']?>"><?=$row['nama_detail']?></label><br>
+                        <?php endforeach; ?>
 					</div>
 				</div>
 				
