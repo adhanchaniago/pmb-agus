@@ -20,8 +20,12 @@
 					  <input type="text" class="form-control" id="tahun_ajaran" name="tahun_ajaran" value="<?=$setting->tahun_ajaran;?>">
 					</div>
 					<div class="form-group">
-						<label for="kouta_pendaftaran">Kouta Pendaftaran</label>
+						<label for="kouta_pendaftaran">Kouta Pendaftaran Umum</label>
 					  <input type="number" class="form-control" id="kouta_pendaftaran" name="kouta_pendaftaran" value="<?=$setting->kouta_pendaftaran;?>">
+					</div>
+					<div class="form-group">
+						<label for="kouta_prestasi">Kouta Pendaftaran Prestasi</label>
+					  <input type="number" class="form-control" id="kouta_prestasi" name="kouta_prestasi" value="<?=$setting->kouta_prestasi;?>">
 					</div>
 					<div class="form-group">
 						<label for="alamat_sekolah">Alamat Sekolah</label>

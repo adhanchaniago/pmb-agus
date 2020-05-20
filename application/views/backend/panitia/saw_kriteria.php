@@ -5,7 +5,7 @@
       <li><a href="#"><?=$title;?></a></li>
       <li class="active"><?=$title1;?></li>
     </ol>
-      <div class="row">
+    	<div class="row">
         <?php if ($this->session->flashdata('success')) { ?>
             <div class="alert alert-success" role="alert">
               <?=$this->session->flashdata('success');?>
@@ -15,12 +15,12 @@
               <?=$this->session->flashdata('error');?>
             </div>
         <?php } ?>
-        <div class="col-md-6 text-left">
-          <strong style="font-size:18pt;"><span class="fa fa-bank"></span> Data Kriteria</strong>
-        </div>
-      </div>
-      <br/>
-      <table width="100%" class="table table-striped table-bordered data">
+    		<div class="col-md-6 text-left">
+    			<strong style="font-size:18pt;"><span class="fa fa-bank"></span> Data Kriteria</strong>
+    		</div>
+    	</div>
+    	<br/>
+    	<table width="100%" class="table table-striped table-bordered data">
         <thead>
           <tr>
             <th width="10px">NO</th>

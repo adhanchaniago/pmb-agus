@@ -49,7 +49,7 @@
 
 	        				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 	        					<img src="<?= base_url() ?>assets/images/thumb-1@2xx.png" alt="" class="img-circle" width="44" />
-	        					<?php echo$this->session->userdata('admin_username'); ?>
+	        					<?php echo$this->session->userdata('panitia_username'); ?>
 	        				</a>
 
 	        				<ul class="dropdown-menu">
@@ -59,7 +59,7 @@
 	        					<!-- Profile sub-links -->
 
 	        					<li>
-	        						<a href="<?=site_url('admin/pesan');?>">
+	        						<a href="<?=site_url('panitia/pesan');?>">
 	        							<i class="entypo-mail"></i>
 	        							Pesan
 	        						</a>
@@ -153,7 +153,7 @@
 		        <h4 class="modal-title">Ubah Atribut Kriteria</h4>
 		      </div>
 		      <div class="modal-body">
-		      	<form method="post" id="form" action="<?=site_url('admin/update_saw_atribut')?>">
+		      	<form method="post" id="form" action="<?=site_url('panitia/update_saw_atribut')?>">
 					<div class="form-group">
 						<label for="id_kriteria">Atribut Kriteria</label>
 						<input type="hidden" name="id_kriteria" value="<?=$row['id_kriteria']?>">

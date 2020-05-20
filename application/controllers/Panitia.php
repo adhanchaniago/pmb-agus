@@ -4,24 +4,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Panitia extends CI_Controller {
 
 
-	public function __construct()
-	{
-		parent::__construct();;
-		$this->load->database();
+    public function __construct()
+    {
+        parent::__construct();;
+        $this->load->database();
         $this->load->library('session');
     }
 
-	public function index()
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function index()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(site_url('login'), 'refresh');
         if ($this->session->userdata('panitia_login') == 1)
             redirect(site_url('panitia/dashboard'), 'refresh');
-	}
+    }
 
-	public function dashboard()
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function dashboard()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $pendaftar = $this->db->get('peserta_pendaftar')->result_array();
@@ -38,11 +38,11 @@ class Panitia extends CI_Controller {
         $data['jumlah_user'] = $user;
         $data['jumlah_pesan'] = $pesan;
         $this->load->view('backend/panitia/index', $data);
-	}
+    }
 
-	public function data_pendaftar()
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function data_pendaftar()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $pendaftar = $this->db->get('peserta_pendaftar')->result_array();
@@ -51,11 +51,11 @@ class Panitia extends CI_Controller {
         $data['title'] = 'Data Pendaftar';
         $data['pendaftar'] = $pendaftar;
         $this->load->view('backend/panitia/index', $data);
-	}
+    }
 
-	public function edit_pendaftar($nisn)
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function edit_pendaftar($nisn)
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $pendaftar = $this->db->get_where('peserta_pendaftar', array('nisn' => $nisn))->row();
@@ -77,9 +77,9 @@ class Panitia extends CI_Controller {
         $data['lokasi'] = $lokasi->result_array();
         $data['prestasi'] = $prestasi->result_array();
         $this->load->view('backend/panitia/index', $data);
-	}
+    }
 
-	public function update_pendaftar()
+    public function update_pendaftar()
     {
         if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
@@ -151,9 +151,9 @@ class Panitia extends CI_Controller {
         redirect('panitia/data_pendaftar','refresh');
     }
 
-	public function del_pendaftar($nisn)
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function del_pendaftar($nisn)
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $this->db->where('nisn' , $nisn);
@@ -162,15 +162,21 @@ class Panitia extends CI_Controller {
         $this->db->where('nisn' , $nisn);
         $this->db->delete('nilai_raport');
 
+        $this->db->where('nisn' , $nisn);
+        $this->db->delete('nilai_awal');
+
+        $this->db->where('nisn' , $nisn);
+        $this->db->delete('hasil');
+
         $this->db->where('username' , $nisn);
         $this->db->delete('user');
         $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
         redirect(site_url('panitia/data_pendaftar'), 'refresh');
-	}
+    }
 
-	public function data_user()
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function data_user()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $user = $this->db->select('*')->from('user')->where('type !=','siswa')->get()->result_array();
@@ -179,21 +185,21 @@ class Panitia extends CI_Controller {
         $data['title'] = 'Data User';
         $data['user'] = $user;
         $this->load->view('backend/panitia/index', $data);
-	}
+    }
 
-	public function add_user()
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function add_user()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $data['page']  = 'add_user';
         $data['title'] = 'Tambah User Baru';
         $this->load->view('backend/panitia/index', $data);
-	}
+    }
 
-	public function save_user()
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function save_user()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $data['username']       = $this->input->post('username');
@@ -203,11 +209,11 @@ class Panitia extends CI_Controller {
         $this->db->insert('user' , $data);
         $this->session->set_flashdata('success', 'Data Berhasil Di Simpan');
         redirect('panitia/data_user','refresh');
-	}
+    }
 
-	public function edit_user($id)
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function edit_user($id)
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $user = $this->db->get_where('user', array('adm_id' => $id))->row();
@@ -216,9 +222,9 @@ class Panitia extends CI_Controller {
         $data['title'] = 'Edit Data User';
         $data['user'] = $user;
         $this->load->view('backend/panitia/index', $data);
-	}
+    }
 
-	public function update_user()
+    public function update_user()
     {
         if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
@@ -234,70 +240,70 @@ class Panitia extends CI_Controller {
         redirect('panitia/data_user','refresh');
     }
 
-	public function del_user($id)
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function del_user($id)
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $this->db->where('adm_id' , $id);
         $this->db->delete('user');
         $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
         redirect(site_url('panitia/data_user'), 'refresh');
-	}
+    }
 
-	public function pesan()
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function pesan()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
-		$pesan = $this->db->get('pesan_peserta')->result_array();
+        $pesan = $this->db->get('pesan_peserta')->result_array();
 
         $data['page']  = 'pesan';
         $data['title'] = 'Pesan';
         $data['pesan'] = $pesan;
         $this->load->view('backend/panitia/index', $data);
-	}
+    }
 
-	public function lihat_pesan($id)
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function lihat_pesan($id)
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
-		$pesan = $this->db->get_where('pesan_peserta', array('id_pesan' => $id))->row();
+        $pesan = $this->db->get_where('pesan_peserta', array('id_pesan' => $id))->row();
 
         $data['page']  = 'lihat_pesan';
         $data['title'] = 'Pesan';
         $data['pesan'] = $pesan;
         $this->load->view('backend/panitia/index', $data);
-	}
+    }
 
-	public function del_pesan($id)
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function del_pesan($id)
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
-		$this->db->where('id_pesan' , $id);
+        $this->db->where('id_pesan' , $id);
         $this->db->delete('pesan_peserta');
         $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
         redirect(site_url('panitia/pesan'), 'refresh');
-	}
+    }
 
-	public function ubah_password()
-	{
-		if ($this->session->userdata('panitia_login') != 1)
+    public function ubah_password()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $data['page']  = 'ubah_password';
         $data['title'] = 'Ubah Password';
         $this->load->view('backend/panitia/index', $data);
-	}
+    }
 
-	public function update_password()
+    public function update_password()
     {
         if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
-        $un = $this->session->userdata('admin_username');
+        $un = $this->session->userdata('panitia_username');
         $pass_lama      = $this->db->get_where('user', array('username' => $un))->row()->password;
         $pass  = md5($this->input->post('password'));
         $pass1  = md5($this->input->post('password1'));
@@ -743,7 +749,7 @@ class Panitia extends CI_Controller {
 
     public function update_saw_atribut()
     {
-        if ($this->session->userdata('admin_login') != 1)
+        if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
         $id       = $this->input->post('id_kriteria');
@@ -794,36 +800,96 @@ class Panitia extends CI_Controller {
             redirect(base_url(), 'refresh');
 
         $kriteria = $this->db->get('data_kriteria')->result_array();
-        $this->db->select('peserta_pendaftar.nama, peserta_pendaftar.jarak_sekolah, nilai_raport.nilai, peserta_pendaftar.ranking')
-         ->from('peserta_pendaftar')
-         ->join('nilai_raport', 'peserta_pendaftar.nisn = nilai_raport.nisn');
-        $siswa = $this->db->get();
         $peserta = $this->db->get('peserta_pendaftar')->result_array();
 
         $data['page']  = 'saw_hasil';
         $data['title'] = 'Metode SAW';
         $data['title1'] = 'Hasil Perhitungan';
         $data['kriteria'] = $kriteria;
-        $data['siswa'] = $siswa->result_array();
         $data['peserta'] = $peserta;
         $this->load->view('backend/panitia/index', $data);
     }
 
-    public function saw_hasil_simpan()
+    public function saw_hasil_umum()
     {
         if ($this->session->userdata('panitia_login') != 1)
             redirect(base_url(), 'refresh');
 
-        $peserta = $this->db->get('peserta_pendaftar')->result_array();
+        $kriteria = $this->db->get('data_kriteria')->result_array();
+        $peserta = $this->db->get_where('peserta_pendaftar', array('jalur' => 'umum'))->result_array();
+
+        $data['page']  = 'saw_hasil_umum';
+        $data['title'] = 'Metode SAW';
+        $data['title1'] = 'Seleksi Jalur Umum';
+        $data['kriteria'] = $kriteria;
+        $data['peserta'] = $peserta;
+        $this->load->view('backend/panitia/index', $data);
+    }
+
+    public function saw_hasil_prestasi()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $kriteria = $this->db->get('data_kriteria')->result_array();
+        $peserta = $this->db->get_where('peserta_pendaftar', array('jalur' => 'prestasi'))->result_array();
+
+        $data['page']  = 'saw_hasil_prestasi';
+        $data['title'] = 'Metode SAW';
+        $data['title1'] = 'Seleksi Jalur Prestasi';
+        $data['kriteria'] = $kriteria;
+        $data['peserta'] = $peserta;
+        $this->load->view('backend/panitia/index', $data);
+    }
+
+    public function saw_hasil_umum_simpan()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $peserta = $this->db->get_where('peserta_pendaftar', array('jalur' => 'umum'))->result_array();
         $no = 1;
         foreach ($peserta as $p) {
-            $data['nisn']       = $this->input->post('nisn'.$no);
-            $data['jumlah']       = $this->input->post('jumlah'.$no);
-            $this->db->insert('hasil', $data);
+            $cek = $this->db->get_where('hasil', array('nisn' => $p['nisn']));
+            if ($cek->num_rows() > 0) {
+                $id = $cek->row()->hasil_id;
+                $data1['jumlah']       = $this->input->post('jumlah'.$no);
+                $this->db->where('hasil_id' , $id);
+                $this->db->update('hasil', $data1);
+            }else{
+                $data['nisn']       = $this->input->post('nisn'.$no);
+                $data['jumlah']       = $this->input->post('jumlah'.$no);
+                $this->db->insert('hasil', $data);
+            }
             $no++;
         }
-        $this->session->set_flashdata('success' , 'Hasil Berhasil Disimpan!');
-        redirect(site_url('panitia/saw_hasil'), 'refresh');
+        $this->session->set_flashdata('success' , 'Hasil Berhasil Disimpan, Silahkan Lanjutkan ke Pengumuman');
+        redirect(site_url('panitia/saw_hasil_umum'), 'refresh');
+    }
+
+    public function saw_hasil_prestasi_simpan()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $peserta = $this->db->get_where('peserta_pendaftar', array('jalur' => 'prestasi'))->result_array();
+        $no = 1;
+        foreach ($peserta as $p) {
+            $cek = $this->db->get_where('hasil', array('nisn' => $p['nisn']));
+            if ($cek->num_rows() > 0) {
+                $id = $cek->row()->hasil_id;
+                $data1['jumlah']       = $this->input->post('jumlah'.$no);
+                $this->db->where('hasil_id' , $id);
+                $this->db->update('hasil', $data1);
+            }else{
+                $data['nisn']       = $this->input->post('nisn'.$no);
+                $data['jumlah']       = $this->input->post('jumlah'.$no);
+                $this->db->insert('hasil', $data);
+            }
+            $no++;
+        }
+        $this->session->set_flashdata('success' , 'Hasil Berhasil Disimpan, Silahkan Lanjutkan ke Pengumuman');
+        redirect(site_url('panitia/saw_hasil_prestasi'), 'refresh');
     }
 
     public function pengumuman()
@@ -840,6 +906,44 @@ class Panitia extends CI_Controller {
         $data['page']  = 'pengumuman';
         $data['title'] = 'Pengumuman';
         $data['title1'] = 'Pengumuman Hasil Pendaftaran';
+        $data['siswa'] = $siswa->result_array();
+        $this->load->view('backend/panitia/index', $data);
+    }
+
+    public function pengumuman_umum()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $this->db->select('*')
+         ->from('peserta_pendaftar')
+         ->join('hasil', 'peserta_pendaftar.nisn = hasil.nisn')
+         ->where('jalur', 'umum')
+         ->order_by('jumlah','DESC');
+        $siswa = $this->db->get();
+
+        $data['page']  = 'pengumuman_umum';
+        $data['title'] = 'Jalur Umum';
+        $data['title1'] = 'Pengumuman Hasil Pendaftaran Jalur Umum';
+        $data['siswa'] = $siswa->result_array();
+        $this->load->view('backend/panitia/index', $data);
+    }
+
+    public function pengumuman_prestasi()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $this->db->select('*')
+         ->from('peserta_pendaftar')
+         ->join('hasil', 'peserta_pendaftar.nisn = hasil.nisn')
+         ->where('jalur', 'prestasi')
+         ->order_by('jumlah','DESC');
+        $siswa = $this->db->get();
+
+        $data['page']  = 'pengumuman_prestasi';
+        $data['title'] = 'Jalur Prestasi';
+        $data['title1'] = 'Pengumuman Hasil Pendaftaran Jalur Prestasi';
         $data['siswa'] = $siswa->result_array();
         $this->load->view('backend/panitia/index', $data);
     }
@@ -875,6 +979,74 @@ class Panitia extends CI_Controller {
             $rank++;
         }
         redirect(site_url('panitia/pengumuman'), 'refresh');
+    }
+
+    public function up_pengumuman_u()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
+            redirect(base_url(), 'refresh');
+        
+        $this->db->select('*')
+         ->from('peserta_pendaftar')
+         ->join('hasil', 'peserta_pendaftar.nisn = hasil.nisn')
+         ->where('jalur', 'umum')
+         ->order_by('jumlah','DESC');
+        $sql = $this->db->get();
+        $baris = ($sql->num_rows()) + 1;
+        $hasil = $sql->result_array();
+
+        $batas = $this->db->get('setting')->row()->kouta_pendaftaran;
+
+        $rank = 1;
+        foreach ($hasil as $row) { 
+            if ($rank <= $batas) {
+                $data['peringkat'] = $rank;
+                $data['keterangan'] = 'Lulus';
+                $this->db->where('hasil_id' , $row['hasil_id']);
+                $this->db->update('hasil', $data);
+            }else{
+                $data['peringkat'] = $rank;
+                $data['keterangan'] = 'Tidak Lulus';
+                $this->db->where('hasil_id' , $row['hasil_id']);
+                $this->db->update('hasil', $data);
+            }
+            $rank++;
+        }
+        redirect(site_url('panitia/pengumuman_umum'), 'refresh');
+    }
+
+    public function up_pengumuman_p()
+    {
+        if ($this->session->userdata('panitia_login') != 1)
+            redirect(base_url(), 'refresh');
+        
+        $this->db->select('*')
+         ->from('peserta_pendaftar')
+         ->join('hasil', 'peserta_pendaftar.nisn = hasil.nisn')
+         ->where('jalur', 'prestasi')
+         ->order_by('jumlah','DESC');
+        $sql = $this->db->get();
+        $baris = ($sql->num_rows()) + 1;
+        $hasil = $sql->result_array();
+
+        $batas = $this->db->get('setting')->row()->kouta_prestasi;
+
+        $rank = 1;
+        foreach ($hasil as $row) { 
+            if ($rank <= $batas) {
+                $data['peringkat'] = $rank;
+                $data['keterangan'] = 'Lulus';
+                $this->db->where('hasil_id' , $row['hasil_id']);
+                $this->db->update('hasil', $data);
+            }else{
+                $data['peringkat'] = $rank;
+                $data['keterangan'] = 'Tidak Lulus';
+                $this->db->where('hasil_id' , $row['hasil_id']);
+                $this->db->update('hasil', $data);
+            }
+            $rank++;
+        }
+        redirect(site_url('panitia/pengumuman_prestasi'), 'refresh');
     }
 
     public function pengaturan()
@@ -913,6 +1085,7 @@ class Panitia extends CI_Controller {
         $data['nama_sekolah']       = $this->input->post('nama_sekolah');
         $data['tahun_ajaran']       = $this->input->post('tahun_ajaran');
         $data['kouta_pendaftaran']       = $this->input->post('kouta_pendaftaran');
+        $data['kouta_prestasi']       = $this->input->post('kouta_prestasi');
         $data['alamat_sekolah']       = $this->input->post('alamat_sekolah');
         $data['email_sekolah']       = $this->input->post('email_sekolah');
         $data['tel_sekolah']       = $this->input->post('tel_sekolah');

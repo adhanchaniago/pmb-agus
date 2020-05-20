@@ -23,9 +23,9 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Email</th>
-                    <th>Subject</th>
-                    <th>Pesan</th>
+            		<th>Email</th>
+            		<th>Subject</th>
+            		<th>Pesan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -36,14 +36,14 @@
                     {
                 ?>
                 <tr>
-                    <td><?php echo $no++; ?></td>
-                    <td><?php echo $row['email'] ?></td>
-                    <td><?php echo $row['subject'] ?></td>
+        			<td><?php echo $no++; ?></td>
+        			<td><?php echo $row['email'] ?></td>
+        			<td><?php echo $row['subject'] ?></td>
                     <td><?php echo $row['pesan'] ?></td>
-                    <td>
-                        <a class="btn btn-s btn-primary" data-toggle="modal" data-target="#pesan<?=$row['id_pesan']?>"><i class="entypo-eye"></i>Lihat</a>
+        			<td>
+        				<a class="btn btn-s btn-primary" data-toggle="modal" data-target="#pesan<?=$row['id_pesan']?>"><i class="entypo-eye"></i>Lihat</a>
                         <a class='btn btn-sm btn-danger' href="<?php echo site_url('panitia/del_pesan/'.$row['id_pesan']);?>" onclick="return confirm('Apakah anda yakin ingin menghapus pesan ?')"><i class="entypo-trash"></i>Hapus</a>
-                    </td>
+        			</td>
                 </tr>
             </tbody>
                 <?php } ?>

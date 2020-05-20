@@ -34,6 +34,7 @@
 					<th>
 						Asal Sekolah
 					</th>
+					<th>Jalur Pendaftaran</th>
 					<th>
 						Aksi
 					</th>
@@ -47,6 +48,7 @@
 						<td><?=$row['nisn'];?></td>
 						<td><?=$row['nama'];?></td>
 						<td><?=$row['asal_sekolah'];?></td>
+						<td><?=$row['jalur'];?></td>
 						<td>
 							<a class='btn btn-sm btn-primary' 
 								href="<?php echo site_url('panitia/edit_pendaftar/'.$row['nisn']);?>">Edit</a>

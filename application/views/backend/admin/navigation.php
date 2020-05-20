@@ -21,7 +21,7 @@
 			<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
 			<li><a href=" <?php echo base_url('home') ?> " target="_blank"><i class="entypo-monitor"></i><span>Halaman Depan</span></a></li>
 
-			<li <?php if($page=="dahsboard") echo 'class="active opened active" '; ?> ><?= anchor('admin/dashboard','<i class=entypo-gauge></i><span>Dashboard</span>'); ?></li>
+			<li <?php if($page=="dashboard") echo 'class="active opened active" '; ?> ><?= anchor('admin/dashboard','<i class=entypo-gauge></i><span>Dashboard</span>'); ?></li>
 
 			<li <?php if($page =="data_pendaftar" || $page =="data_user" || $page =="edit_pendaftar" || $page =="add_user" || $page =="edit_user") echo 'class="active opened active multiple-expanded" '; ?>>
 				<a href="#">
