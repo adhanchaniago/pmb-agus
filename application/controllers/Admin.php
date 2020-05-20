@@ -162,6 +162,12 @@ class Admin extends CI_Controller {
         $this->db->where('nisn' , $nisn);
         $this->db->delete('nilai_raport');
 
+        $this->db->where('nisn' , $nisn);
+        $this->db->delete('nilai_awal');
+
+        $this->db->where('nisn' , $nisn);
+        $this->db->delete('hasil');
+
         $this->db->where('username' , $nisn);
         $this->db->delete('user');
         $this->session->set_flashdata('success' , 'Data Berhasil Dihapus!');
@@ -794,27 +800,54 @@ class Admin extends CI_Controller {
             redirect(base_url(), 'refresh');
 
         $kriteria = $this->db->get('data_kriteria')->result_array();
-        $this->db->select('peserta_pendaftar.nama, peserta_pendaftar.jarak_sekolah, nilai_raport.nilai, peserta_pendaftar.ranking')
-         ->from('peserta_pendaftar')
-         ->join('nilai_raport', 'peserta_pendaftar.nisn = nilai_raport.nisn');
-        $siswa = $this->db->get();
         $peserta = $this->db->get('peserta_pendaftar')->result_array();
 
         $data['page']  = 'saw_hasil';
         $data['title'] = 'Metode SAW';
         $data['title1'] = 'Hasil Perhitungan';
         $data['kriteria'] = $kriteria;
-        $data['siswa'] = $siswa->result_array();
         $data['peserta'] = $peserta;
         $this->load->view('backend/admin/index', $data);
     }
 
-    public function saw_hasil_simpan()
+    public function saw_hasil_umum()
     {
         if ($this->session->userdata('admin_login') != 1)
             redirect(base_url(), 'refresh');
 
-        $peserta = $this->db->get('peserta_pendaftar')->result_array();
+        $kriteria = $this->db->get('data_kriteria')->result_array();
+        $peserta = $this->db->get_where('peserta_pendaftar', array('jalur' => 'umum'))->result_array();
+
+        $data['page']  = 'saw_hasil_umum';
+        $data['title'] = 'Metode SAW';
+        $data['title1'] = 'Seleksi Jalur Umum';
+        $data['kriteria'] = $kriteria;
+        $data['peserta'] = $peserta;
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function saw_hasil_prestasi()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $kriteria = $this->db->get('data_kriteria')->result_array();
+        $peserta = $this->db->get_where('peserta_pendaftar', array('jalur' => 'prestasi'))->result_array();
+
+        $data['page']  = 'saw_hasil_prestasi';
+        $data['title'] = 'Metode SAW';
+        $data['title1'] = 'Seleksi Jalur Prestasi';
+        $data['kriteria'] = $kriteria;
+        $data['peserta'] = $peserta;
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function saw_hasil_umum_simpan()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $peserta = $this->db->get_where('peserta_pendaftar', array('jalur' => 'umum'))->result_array();
         $no = 1;
         foreach ($peserta as $p) {
             $cek = $this->db->get_where('hasil', array('nisn' => $p['nisn']));
@@ -831,7 +864,32 @@ class Admin extends CI_Controller {
             $no++;
         }
         $this->session->set_flashdata('success' , 'Hasil Berhasil Disimpan, Silahkan Lanjutkan ke Pengumuman');
-        redirect(site_url('admin/saw_hasil'), 'refresh');
+        redirect(site_url('admin/saw_hasil_umum'), 'refresh');
+    }
+
+    public function saw_hasil_prestasi_simpan()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $peserta = $this->db->get_where('peserta_pendaftar', array('jalur' => 'prestasi'))->result_array();
+        $no = 1;
+        foreach ($peserta as $p) {
+            $cek = $this->db->get_where('hasil', array('nisn' => $p['nisn']));
+            if ($cek->num_rows() > 0) {
+                $id = $cek->row()->hasil_id;
+                $data1['jumlah']       = $this->input->post('jumlah'.$no);
+                $this->db->where('hasil_id' , $id);
+                $this->db->update('hasil', $data1);
+            }else{
+                $data['nisn']       = $this->input->post('nisn'.$no);
+                $data['jumlah']       = $this->input->post('jumlah'.$no);
+                $this->db->insert('hasil', $data);
+            }
+            $no++;
+        }
+        $this->session->set_flashdata('success' , 'Hasil Berhasil Disimpan, Silahkan Lanjutkan ke Pengumuman');
+        redirect(site_url('admin/saw_hasil_prestasi'), 'refresh');
     }
 
     public function pengumuman()
@@ -848,6 +906,44 @@ class Admin extends CI_Controller {
         $data['page']  = 'pengumuman';
         $data['title'] = 'Pengumuman';
         $data['title1'] = 'Pengumuman Hasil Pendaftaran';
+        $data['siswa'] = $siswa->result_array();
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function pengumuman_umum()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $this->db->select('*')
+         ->from('peserta_pendaftar')
+         ->join('hasil', 'peserta_pendaftar.nisn = hasil.nisn')
+         ->where('jalur', 'umum')
+         ->order_by('jumlah','DESC');
+        $siswa = $this->db->get();
+
+        $data['page']  = 'pengumuman_umum';
+        $data['title'] = 'Jalur Umum';
+        $data['title1'] = 'Pengumuman Hasil Pendaftaran Jalur Umum';
+        $data['siswa'] = $siswa->result_array();
+        $this->load->view('backend/admin/index', $data);
+    }
+
+    public function pengumuman_prestasi()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+
+        $this->db->select('*')
+         ->from('peserta_pendaftar')
+         ->join('hasil', 'peserta_pendaftar.nisn = hasil.nisn')
+         ->where('jalur', 'prestasi')
+         ->order_by('jumlah','DESC');
+        $siswa = $this->db->get();
+
+        $data['page']  = 'pengumuman_prestasi';
+        $data['title'] = 'Jalur Prestasi';
+        $data['title1'] = 'Pengumuman Hasil Pendaftaran Jalur Prestasi';
         $data['siswa'] = $siswa->result_array();
         $this->load->view('backend/admin/index', $data);
     }
@@ -883,6 +979,74 @@ class Admin extends CI_Controller {
             $rank++;
         }
         redirect(site_url('admin/pengumuman'), 'refresh');
+    }
+
+    public function up_pengumuman_u()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+        
+        $this->db->select('*')
+         ->from('peserta_pendaftar')
+         ->join('hasil', 'peserta_pendaftar.nisn = hasil.nisn')
+         ->where('jalur', 'umum')
+         ->order_by('jumlah','DESC');
+        $sql = $this->db->get();
+        $baris = ($sql->num_rows()) + 1;
+        $hasil = $sql->result_array();
+
+        $batas = $this->db->get('setting')->row()->kouta_pendaftaran;
+
+        $rank = 1;
+        foreach ($hasil as $row) { 
+            if ($rank <= $batas) {
+                $data['peringkat'] = $rank;
+                $data['keterangan'] = 'Lulus';
+                $this->db->where('hasil_id' , $row['hasil_id']);
+                $this->db->update('hasil', $data);
+            }else{
+                $data['peringkat'] = $rank;
+                $data['keterangan'] = 'Tidak Lulus';
+                $this->db->where('hasil_id' , $row['hasil_id']);
+                $this->db->update('hasil', $data);
+            }
+            $rank++;
+        }
+        redirect(site_url('admin/pengumuman_umum'), 'refresh');
+    }
+
+    public function up_pengumuman_p()
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+        
+        $this->db->select('*')
+         ->from('peserta_pendaftar')
+         ->join('hasil', 'peserta_pendaftar.nisn = hasil.nisn')
+         ->where('jalur', 'prestasi')
+         ->order_by('jumlah','DESC');
+        $sql = $this->db->get();
+        $baris = ($sql->num_rows()) + 1;
+        $hasil = $sql->result_array();
+
+        $batas = $this->db->get('setting')->row()->kouta_prestasi;
+
+        $rank = 1;
+        foreach ($hasil as $row) { 
+            if ($rank <= $batas) {
+                $data['peringkat'] = $rank;
+                $data['keterangan'] = 'Lulus';
+                $this->db->where('hasil_id' , $row['hasil_id']);
+                $this->db->update('hasil', $data);
+            }else{
+                $data['peringkat'] = $rank;
+                $data['keterangan'] = 'Tidak Lulus';
+                $this->db->where('hasil_id' , $row['hasil_id']);
+                $this->db->update('hasil', $data);
+            }
+            $rank++;
+        }
+        redirect(site_url('admin/pengumuman_prestasi'), 'refresh');
     }
 
     public function pengaturan()
@@ -921,6 +1085,7 @@ class Admin extends CI_Controller {
         $data['nama_sekolah']       = $this->input->post('nama_sekolah');
         $data['tahun_ajaran']       = $this->input->post('tahun_ajaran');
         $data['kouta_pendaftaran']       = $this->input->post('kouta_pendaftaran');
+        $data['kouta_prestasi']       = $this->input->post('kouta_prestasi');
         $data['alamat_sekolah']       = $this->input->post('alamat_sekolah');
         $data['email_sekolah']       = $this->input->post('email_sekolah');
         $data['tel_sekolah']       = $this->input->post('tel_sekolah');

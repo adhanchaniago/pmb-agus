@@ -21,8 +21,12 @@
             <td><?=$setting->tahun_ajaran;?></td>
           </tr>
           <tr>
-            <td>Kouta Pendaftaran</td>
+            <td>Kouta Pendaftaran Jalur Umum</td>
             <td><?=$setting->kouta_pendaftaran;?></td>
+          </tr>
+          <tr>
+            <td>Kouta Pendaftaran Jalur Prestasi</td>
+            <td><?=$setting->kouta_prestasi;?></td>
           </tr>
           <tr>
             <td>Alamat Sekolah</td>

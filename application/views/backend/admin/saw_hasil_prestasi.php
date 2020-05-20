@@ -166,7 +166,7 @@
 			</div>
 		</div>
 		<br/>
-		<form action='<?=site_url("admin/saw_hasil_simpan");?>' method='post'>
+		<form action='<?=site_url("admin/saw_hasil_prestasi_simpan");?>' method='post'>
 			<table width="100%" class="table table-striped table-bordered">
 				<thead>
 					<tr>

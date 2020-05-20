@@ -116,7 +116,7 @@
 			</tbody>
 		</table>
 
-		<table width="100%" class="table table-striped table-bordered">
+		<!-- <table width="100%" class="table table-striped table-bordered">
 			<thead>
 				<tr>
 					<th>Penjumlahan</th>
@@ -159,7 +159,7 @@
 					</tr>
 				<?php endforeach;?>
 			</tbody>
-		</table>
+		</table> -->
 
 		<table width="100%" class="table table-striped table-bordered">
 			<thead>
