@@ -161,7 +161,7 @@
 			</tbody>
 		</table> -->
 
-		<table width="100%" class="table table-striped table-bordered">
+		<!-- <table width="100%" class="table table-striped table-bordered">
 			<thead>
 				<tr>
 					<th>Rasio Konsistensi</th>
@@ -190,7 +190,46 @@
 					<th><?php $rata = $total/$count; echo number_format($rata, 4, '.', ','); ?></th>
 				</tr>
 			</tfoot>
+		</table> -->
+
+		<table width="100%" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Rasio Konsistensi</th>
+					<th class="info">Jumlah</th>
+					<th class="success">Prioritas</th>
+					<th class="warning">Hasil</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php $total=0; 
+				$bobots1z = $kriteria->result_array();
+				foreach ($bobots1z as $row1): ?>
+					<tr>
+						<?php 
+							$data = $this->db->select('SUM(nilai_analisa_kriteria) AS jumlah')->from('analisa_kriteria')->where('kriteria_kedua', $row1['id_kriteria'])->get()->row();
+						?>
+						<th class="active"><?=$row1["nama_kriteria"]?></th>
+						<th class="info">
+							<?php 
+								echo number_format($data->jumlah, 4, '.', ',');
+							?>
+						</th>
+						<th class="success"><?=number_format($row1["bobot_kriteria"], 4, '.', ',');?></th>
+						<?php $jumlah = ($data->jumlah)*($row1["bobot_kriteria"])?>
+						<th class="warning"><?=number_format($jumlah, 4, '.', ',');?></th>
+						<?php $total += $jumlah; ?>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+			<tfoot>
+				<tr class="danger">
+					<th colspan="3">Jumlah</th>
+					<th><?php $rata = $total; echo number_format($rata, 4, '.', ','); ?></th>
+				</tr>
+			</tfoot>
 		</table>
+
 
 		<table width="100%" class="table table-striped table-bordered">
 			<tbody>
