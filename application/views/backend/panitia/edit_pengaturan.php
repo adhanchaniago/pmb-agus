@@ -41,7 +41,7 @@
 					</div>
 					<div class="btn-group">
 						<button type="submit" class="btn btn-dark">Simpan</button>
-						<button type="button" class="btn btn-default">Kembali</button>
+						<a href="<?=site_url('panitia/pengaturan')?>" type="button" class="btn btn-default">Kembali</a>
 					</div>
 				</form>
 			</div>
