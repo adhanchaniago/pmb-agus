@@ -71,11 +71,14 @@ class Panitia extends CI_Controller {
          ->where('data_kriteria.nama_kriteria', 'Prestasi');
         $prestasi = $this->db->get();
 
+        $nilai = $this->db->get_where('nilai_raport', array('nisn' => $nisn))->row();
+
         $data['page']  = 'edit_pendaftar';
         $data['title'] = 'Edit Data Siswa';
         $data['pendaftar'] = $pendaftar;
         $data['lokasi'] = $lokasi->result_array();
         $data['prestasi'] = $prestasi->result_array();
+        $data['nilai'] = $nilai;
         $this->load->view('backend/panitia/index', $data);
     }
 

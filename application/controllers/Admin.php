@@ -71,11 +71,14 @@ class Admin extends CI_Controller {
          ->where('data_kriteria.nama_kriteria', 'Prestasi');
         $prestasi = $this->db->get();
 
+        $nilai = $this->db->get_where('nilai_raport', array('nisn' => $nisn))->row();
+
         $data['page']  = 'edit_pendaftar';
         $data['title'] = 'Edit Data Siswa';
         $data['pendaftar'] = $pendaftar;
         $data['lokasi'] = $lokasi->result_array();
         $data['prestasi'] = $prestasi->result_array();
+        $data['nilai'] = $nilai;
         $this->load->view('backend/admin/index', $data);
 	}
 
@@ -184,6 +187,7 @@ class Admin extends CI_Controller {
         $data['page']  = 'data_user';
         $data['title'] = 'Data User';
         $data['user'] = $user;
+        $data['un'] = $this->session->userdata('admin_username');
         $this->load->view('backend/admin/index', $data);
 	}
 

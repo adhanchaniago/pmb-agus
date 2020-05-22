@@ -8,10 +8,11 @@
 	<div class="panel panel-container" style="padding: 50px">
 		<div class="bootstrap-table">
 
-			<form class='form-horizontal row-border' action='<?=site_url("admin/save_user");?>' method='post' target="_parent">
+			<form class='form-horizontal row-border' action='<?=site_url("admin/update_user");?>' method='post' target="_parent">
 				<div class='form-group'>
 					<label class='col-md-2 control-label'>Username</label>
 					<div class='col-md-10'>
+						<input type='hidden' name='id' class='form-control' value="<?=$user->adm_id;?>" />
 						<input type='text' name='username' class='form-control' value="<?=$user->username;?>" />
 					</div>
 				</div>

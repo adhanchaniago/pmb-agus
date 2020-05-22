@@ -53,9 +53,14 @@
 						<td><?=$row['username'];?></td>
 						<td><?=$row['type'];?></td>
 						<td>
-							<a class='btn btn-sm btn-primary' 
-								href="<?php echo site_url('admin/edit_user/'.$row['adm_id']);?>">Edit</a>
-							<a class='btn btn-sm btn-danger' href="<?php echo site_url('admin/del_user/'.$row['adm_id']);?>" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ?')">Hapus</a>
+							<?php if($un != $row['username']){ ?>
+								<a class='btn btn-sm btn-primary' 
+									href="<?php echo site_url('admin/edit_user/'.$row['adm_id']);?>">Edit</a>
+								<a class='btn btn-sm btn-danger' href="<?php echo site_url('admin/del_user/'.$row['adm_id']);?>" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ?')">Hapus</a>
+							<?php }else{ ?>
+								<a class='btn btn-sm btn-primary' 
+									href="<?php echo site_url('admin/edit_user/'.$row['adm_id']);?>">Edit</a>
+							<?php } ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>

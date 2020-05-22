@@ -170,7 +170,15 @@
                         <?php endforeach; ?>
 					</div>
 				</div>
-				
+				<hr>
+				<div class='form-group'>
+					<label class='col-md-2 control-label' >Total Nilai Raport</label>
+					<div class='col-md-10'>
+						<input type='number' name='nilai' placeholder='' class='form-control' value="<?=$nilai->total;?>" readonly="on">
+					</div>
+				</div>
+
+
 				</div>
 				<center>
 					<input type='submit' class='btn btn-sm btn-primary' name='simpan' value='Update'>
