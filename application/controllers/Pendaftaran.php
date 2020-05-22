@@ -91,7 +91,7 @@ class Pendaftaran extends CI_Controller {
 	        $data4['nisn'] = $this->input->post('nisn');
 			$data4['id_kriteria'] = $jarak->id_kriteria;
 			$data4['nilai'] = $jarak->nilai;
-			$this->db->insert('nilai_awal', $data4);
+			$this->db->insert('nilai_awal_umum', $data4);
 
 			$id_rank = $this->input->post('rangking');
 			$this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
@@ -102,7 +102,7 @@ class Pendaftaran extends CI_Controller {
 	        $data5['nisn'] = $this->input->post('nisn');
 			$data5['id_kriteria'] = $rank->id_kriteria;
 			$data5['nilai'] = $rank->nilai;
-			$this->db->insert('nilai_awal', $data5);
+			$this->db->insert('nilai_awal_umum', $data5);
 
 			$this->session->set_flashdata('success' , 'Berhasil Daftar, Silahkan Login');
 			redirect(site_url('login'), 'refresh');
@@ -183,7 +183,7 @@ class Pendaftaran extends CI_Controller {
 	        $data4['nisn'] = $this->input->post('nisn');
 			$data4['id_kriteria'] = $jarak->id_kriteria;
 			$data4['nilai'] = $jarak->nilai;
-			$this->db->insert('nilai_awal', $data4);
+			$this->db->insert('nilai_awal_prestasi', $data4);
 
 			$id_rank = $this->input->post('rangking');
 			$this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
@@ -194,7 +194,7 @@ class Pendaftaran extends CI_Controller {
 	        $data5['nisn'] = $this->input->post('nisn');
 			$data5['id_kriteria'] = $rank->id_kriteria;
 			$data5['nilai'] = $rank->nilai;
-			$this->db->insert('nilai_awal', $data5);
+			$this->db->insert('nilai_awal_prestasi', $data5);
 
 			$this->session->set_flashdata('success' , 'Berhasil Daftar, Silahkan Login');
 			redirect(site_url('login'), 'refresh');

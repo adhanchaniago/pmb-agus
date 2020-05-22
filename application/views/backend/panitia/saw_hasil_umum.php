@@ -88,7 +88,7 @@
 					<td><?=$no++;?></td>
 					<td><?=$p['nama'];?></td>
 					<?php foreach ($kriteria as $k): ?>
-						<?php $matrik = $this->db->get_where('nilai_awal', array('nisn' => $p['nisn'], 'id_kriteria' => $k['id_kriteria']));
+						<?php $matrik = $this->db->get_where(nilai_awal_umum, array('nisn' => $p['nisn'], 'id_kriteria' => $k['id_kriteria']));
 							$matriks = $matrik->row();
 						?>
 						<td><?php 
@@ -127,10 +127,10 @@
 					<td><?=$no++;?></td>
 					<td><?=$p['nama'];?></td>
 					<?php foreach ($kriteria as $k): ?>
-						<?php $matrik = $this->db->get_where('nilai_awal', array('nisn' => $p['nisn'], 'id_kriteria' => $k['id_kriteria']))->row();
-							$matriks = $this->db->get_where('nilai_awal', array('nisn' => $p['nisn'], 'id_kriteria' => $k['id_kriteria']));
-							$min = $this->db->select('*')->from('nilai_awal')->where('id_kriteria', $k['id_kriteria'])->order_by('nilai','ASC')->limit(1)->get()->row();
-							$max = $this->db->select('*')->from('nilai_awal')->where('id_kriteria', $k['id_kriteria'])->order_by('nilai','DESC')->limit(1)->get()->row();
+						<?php $matrik = $this->db->get_where(nilai_awal_umum, array('nisn' => $p['nisn'], 'id_kriteria' => $k['id_kriteria']))->row();
+							$matriks = $this->db->get_where(nilai_awal_umum, array('nisn' => $p['nisn'], 'id_kriteria' => $k['id_kriteria']));
+							$min = $this->db->select('*')->from(nilai_awal_umum)->where('id_kriteria', $k['id_kriteria'])->order_by('nilai','ASC')->limit(1)->get()->row();
+							$max = $this->db->select('*')->from(nilai_awal_umum)->where('id_kriteria', $k['id_kriteria'])->order_by('nilai','DESC')->limit(1)->get()->row();
 
 							if ($matriks->num_rows() > 0) {
 								$c = $min->nilai / $matrik->nilai;
@@ -191,10 +191,10 @@
 							$hitung = 0;
 							foreach ($kriteria as $k): ?>
 							<?php 
-								$matrik = $this->db->get_where('nilai_awal', array('nisn' => $p['nisn'], 'id_kriteria' => $k['id_kriteria']))->row();
-								$matriks = $this->db->get_where('nilai_awal', array('nisn' => $p['nisn'], 'id_kriteria' => $k['id_kriteria']));
-								$min = $this->db->select('*')->from('nilai_awal')->where('id_kriteria', $k['id_kriteria'])->order_by('nilai','ASC')->limit(1)->get()->row();
-								$max = $this->db->select('*')->from('nilai_awal')->where('id_kriteria', $k['id_kriteria'])->order_by('nilai','DESC')->limit(1)->get()->row();
+								$matrik = $this->db->get_where(nilai_awal_umum, array('nisn' => $p['nisn'], 'id_kriteria' => $k['id_kriteria']))->row();
+								$matriks = $this->db->get_where(nilai_awal_umum, array('nisn' => $p['nisn'], 'id_kriteria' => $k['id_kriteria']));
+								$min = $this->db->select('*')->from(nilai_awal_umum)->where('id_kriteria', $k['id_kriteria'])->order_by('nilai','ASC')->limit(1)->get()->row();
+								$max = $this->db->select('*')->from(nilai_awal_umum)->where('id_kriteria', $k['id_kriteria'])->order_by('nilai','DESC')->limit(1)->get()->row();
 								if ($matriks->num_rows() > 0) {
 									$c = $min->nilai / $matrik->nilai;
 									$b = $matrik->nilai / $max->nilai;

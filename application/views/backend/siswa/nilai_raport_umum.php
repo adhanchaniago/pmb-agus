@@ -40,6 +40,7 @@
                                     <label class='control-label'>Jumlah Nilai Semester 1 (Bahasa Indonesia, Matematika, IPA, IPS, Bahasa Inggris)</label>
                                     <div class="col-md-6">
                                         <input type='number' name='sem1' placeholder='' class='form-control' value="<?=$raport->sem1;?>" required>
+                                        <input type="hidden" name="jalur" value="<?=$jalur?>">
                                     </div>
                                     <label class='control-label'>Jumlah Nilai Semester 2 (Bahasa Indonesia, Matematika, IPA, IPS, Bahasa Inggris)</label>
                                     <div class="col-md-6">

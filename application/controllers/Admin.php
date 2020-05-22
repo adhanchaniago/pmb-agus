@@ -88,6 +88,7 @@ class Admin extends CI_Controller {
             redirect(base_url(), 'refresh');
 
         $nisn = $this->input->post('nisn');
+        $jalur       = $this->input->post('jalur');
         $data['nama']       = $this->input->post('nama');
         $data['no_peserta']     = $this->input->post('no_peserta');
         $data['asal_sekolah']       = $this->input->post('asal_sekolah');
@@ -112,23 +113,24 @@ class Admin extends CI_Controller {
         $this->db->where('nisn' , $nisn);
         $this->db->update('peserta_pendaftar' , $data);
 
+        $tbl = 'nilai_awal_'.$jalur;
         $id_jarak = $this->input->post('jarak_sekolah');
         $this->db->select('data_kriteria.id_kriteria, kriteria_detail.nilai')
                  ->from('kriteria_detail')
                  ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
                  ->where('kriteria_detail.id_detail', $id_jarak);
         $jarak = $this->db->get()->row();
-        $cek = $this->db->get_where('nilai_awal', array('nisn' => $nisn, 'id_kriteria' => $jarak->id_kriteria));
+        $cek = $this->db->get_where($tbl, array('nisn' => $nisn, 'id_kriteria' => $jarak->id_kriteria));
         $a = $cek->row();
         if ($cek->num_rows() == null) {
             $data5['nisn'] = $nisn;
             $data5['id_kriteria'] = $jarak->id_kriteria;
             $data5['nilai'] = $jarak->nilai;
-            $this->db->insert('nilai_awal', $data5);
+            $this->db->insert($tbl, $data5);
         }else{
             $data6['nilai'] = $jarak->nilai;
             $this->db->where('id_nilai_awal' , $a->id_nilai_awal);
-            $this->db->update('nilai_awal' , $data6);
+            $this->db->update($tbl , $data6);
         }
 
         $id_rank = $this->input->post('rangking');
@@ -137,17 +139,17 @@ class Admin extends CI_Controller {
                  ->join('data_kriteria', 'kriteria_detail.id_kriteria = data_kriteria.id_kriteria')
                  ->where('kriteria_detail.id_detail', $id_rank);
         $rank = $this->db->get()->row();
-        $cek = $this->db->get_where('nilai_awal', array('nisn' => $nisn, 'id_kriteria' => $rank->id_kriteria));
+        $cek = $this->db->get_where($tbl, array('nisn' => $nisn, 'id_kriteria' => $rank->id_kriteria));
         $a = $cek->row();
         if ($cek->num_rows() == null) {
             $data7['nisn'] = $nisn;
             $data7['id_kriteria'] = $rank->id_kriteria;
             $data7['nilai'] = $rank->nilai;
-            $this->db->insert('nilai_awal', $data7);
+            $this->db->insert($tbl, $data7);
         }else{
             $data8['nilai'] = $rank->nilai;
             $this->db->where('id_nilai_awal' , $a->id_nilai_awal);
-            $this->db->update('nilai_awal' , $data8);
+            $this->db->update($tbl , $data8);
         }
 
         $this->session->set_flashdata('success', 'Data Berhasil Di Rubah');
@@ -159,6 +161,9 @@ class Admin extends CI_Controller {
 		if ($this->session->userdata('admin_login') != 1)
             redirect(base_url(), 'refresh');
 
+        $data = $this->db->get_where('peserta_pendaftar', array('nisn' => $nisn))->row();
+        $tbl = 'nilai_awal_'.$data->jalur;
+
         $this->db->where('nisn' , $nisn);
         $this->db->delete('peserta_pendaftar');
 
@@ -166,7 +171,7 @@ class Admin extends CI_Controller {
         $this->db->delete('nilai_raport');
 
         $this->db->where('nisn' , $nisn);
-        $this->db->delete('nilai_awal');
+        $this->db->delete($tbl);
 
         $this->db->where('nisn' , $nisn);
         $this->db->delete('hasil');

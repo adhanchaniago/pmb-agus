@@ -41,6 +41,7 @@
                             <div class='col-md-6'>
                                 <label class='control-label'>nama*</label>
                                 <input type='text' name='nama' placeholder='' class='form-control' value="<?=$siswa->nama;?>">
+                                <input type='hidden' name='jalur' placeholder='' class='form-control' value="<?=$siswa->jalur;?>">
                             </div>
                             <div class='col-md-6'>
                                 <label class='control-label'>no. peserta un</label>
